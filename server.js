@@ -4,7 +4,7 @@ const app = require("./app");
 
 process.on("uncaughtException", (err) => {
   console.log("UNCAUGHT EXPCEPTION! Shutting down...");
-  .log(err.name, err.message);
+ console.log(err.name, err.message);
   process.exit(1);
 });
 

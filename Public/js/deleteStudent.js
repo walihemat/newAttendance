@@ -5,7 +5,7 @@ export const deleteStudent = async (id) => {
   try {
     const res = await axios({
       method: "DELETE",
-      url: `http://127.0.0.1:8000/api/v1/attendance/${id}`,
+      url: `/api/v1/attendance/${id}`,
     });
   } catch (err) {
     if (err.response.data.status === "success") {
@@ -27,7 +27,7 @@ export const removeTeacherStudent = async (id, teacherId) => {
   try {
     const res = await axios({
       method: "POST",
-      url: `http://127.0.0.1:8000/api/v1/attendance/removeTeacherStudent/${id}`,
+      url: `/api/v1/attendance/removeTeacherStudent/${id}`,
       data: {
         teacherId,
       },

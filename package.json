@@ -22,6 +22,7 @@
     "node-schedule": "^2.1.0",
     "nodemailer": "^6.8.0",
     "nodemon": "^2.0.20",
+    "npm": "^9.4.0",
     "pug": "^3.0.2",
     "sharp": "^0.31.3",
     "slugify": "^1.6.5",
@@ -35,7 +36,7 @@
     "start": "nodemon server.js",
     "start:prod": "set NODE_ENV=production& nodemon server.js",
     "watch:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
-    "bundle:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js"
+    "build:js": "parcel build ./public/js/index.js --out-dir ./public/js --out-file bundle.js"
   },
   "author": "",
   "license": "ISC",

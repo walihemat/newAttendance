@@ -6,7 +6,7 @@ export const deleteTeacher = async (id) => {
   try {
     const res = await axios({
       method: "DELETE",
-      url: `http://127.0.0.1:8000/api/v1/users/deleteTeacher/${id}`,
+      url: `/api/v1/users/deleteTeacher/${id}`,
     });
     if (res.data.status === "success") {
       showAlert("success", "Teacher successfully Deleted!");

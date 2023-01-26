@@ -5,7 +5,7 @@ export const attendStudent = async (id, attended) => {
   try {
     const res = await axios({
       method: "POST",
-      url: `http://127.0.0.1:8000/api/v1/attendance/attendStudents/${id}`,
+      url: `/api/v1/attendance/attendStudents/${id}`,
       data: {
         attended,
       },

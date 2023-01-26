@@ -13,7 +13,7 @@ export const addStudent = async (
   try {
     const res = await axios({
       method: "POST",
-      url: "http://127.0.0.1:8000/api/v1/attendance",
+      url: "/api/v1/attendance",
       data: {
         name: Name,
         class: Class,
@@ -50,7 +50,7 @@ export const editStudent = async (
   try {
     const res = await axios({
       method: "PATCH",
-      url: `http://127.0.0.1:8000/api/v1/attendance/${id}`,
+      url: `/api/v1/attendance/${id}`,
       data: {
         name: Name,
         class: Class,
