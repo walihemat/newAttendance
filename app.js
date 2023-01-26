@@ -19,6 +19,7 @@ const Attendance = require("./models/attendanceModel");
 const Teacher = require("./models/teacherModel");
 const viewRouter = require("./routes/viewRoutes");
 
+// start express app
 const app = express();
 
 // Server side rendering functionality
