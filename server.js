@@ -4,7 +4,7 @@ const app = require("./app");
 
 process.on("uncaughtException", (err) => {
   console.log("UNCAUGHT EXPCEPTION! Shutting down...");
-  console.log(err.name, err.message);
+  .log(err.name, err.message);
   process.exit(1);
 });
 
@@ -22,9 +22,7 @@ mongoose
     useFindAndModify: false,
     useUnifiedTopology: true
   })
-  .then((con) => console.log("DB connection successfull!")).catch(err=>{
-    console.log(err)
-  })
+  .then((con) => console.log("DB connection successfull!"));
 
 const port = process.env.PORT || 3000;
 const server = app.listen(port, (req, res) => {
@@ -32,7 +30,6 @@ const server = app.listen(port, (req, res) => {
 });
 
 process.on("unhandledRejection", (err) => {
-  console.log(err.name, err.message);
   console.log("UNHANDLED REJECTION!  Shutting Down......");
   server.close(() => {
     process.exit(1);
