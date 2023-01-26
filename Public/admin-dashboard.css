@@ -1,0 +1,70 @@
+body {
+  background-color: #e8e8e8;
+  overflow-x: hidden;
+}
+
+.teacher-card {
+  max-width: 200px;
+}
+
+.card-section {
+  overflow-y: scroll;
+  background-color: #f0f8ff;
+  height: 80vh;
+}
+
+.teachers-card-section {
+  overflow-y: scroll;
+  background-color: #f0f8ff;
+  height: 80vh;
+}
+
+.salary-card-section {
+  overflow-y: scroll;
+  background-color: #fff;
+  height: 80vh;
+}
+
+.teacher-info-card-section {
+  background-color: #ccd4db;
+  height: fit-content;
+  max-width: 70vw;
+}
+
+.teacher-info-container-row {
+  height: 70vh;
+}
+.teacher-container-row {
+  height: 80vh;
+}
+
+.salary-container-row {
+  height: 100vh;
+}
+
+.teacher-search-container {
+  height: 20vh;
+}
+
+.student-form-box {
+  background-color: #f0f8ff;
+  overflow-y: scroll;
+  height: 75vh;
+}
+.changePassword-form-box {
+  background-color: #f0f8ff;
+}
+.addTeacher-form-box {
+  background-color: #f0f8ff;
+  height: 75vh;
+  overflow-y: scroll;
+}
+.student-form-login-box {
+  background-color: #f0f8ff;
+  height: fit-content;
+}
+
+.teacher-students-table {
+  height: 50vh;
+  overflow-y: scroll;
+}

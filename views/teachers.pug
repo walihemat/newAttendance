@@ -1,0 +1,34 @@
+extends base
+
+block content
+  .container
+    .mt-3.mb-1.row.align-items-end.justify-content-center(style='height: 150px')
+      h3.mt-4.text-center Our Instructors
+      .col-md-6.col-9
+        form(action='/teachers' method='GET') 
+          .input-group.d-flex.justify-content-center.align-items-center
+            input.form-control(type='text' placeholder='Search Instructor' aria-describedby='after' name='allTeacherSearch' value=`${allTeacherSearch}`)
+            button.btn.btn-primary#after(type='submit') Search
+    .row.align-items-center.teacher-container-row.mx-3.mx-md-0
+      .col-12.teachers-card-section.py-3
+        .row.justify-content-center.align-items-center.g-2
+          if !result
+            if teachers.length>0
+              each teacher in teachers
+                .col-sm-6.col-md-4.col-lg-3.xl-2.xxl-1.teacher-card.text-center
+                  .card.pb-3
+                    .card-body
+                      img.rounded-circle(src=`/images/users/${teacher.photo}` alt=`${teacher.name}'s photo` width='100')
+                      .card-title= teacher.name 
+                      .card-card-subtitle= teacher.lastName
+                      .mt-2.d-flex.justify-content-center.align-items-center
+                        button.btn-sm.btn-danger.mx-1.deleteTeacherBtn(value=`${teacher._id}`)
+                          i.bi.bi-trash
+                        a.btn-sm.btn-warning.mx-1(href=`/edit_teacher/${teacher._id}` )
+                          i.bi.bi-pencil
+                    a.link-success(href=`/teacher_info/${teacher._id}`) Read More
+            else
+              h5.text-center.text-danger No Instrucotr!
+          if result
+            h6.text-center.text-danger= result
+            

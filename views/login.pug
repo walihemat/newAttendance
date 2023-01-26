@@ -1,0 +1,21 @@
+extends base
+
+block content
+  // Login
+  .container
+    .row
+      .col
+        .row.justify-content-center.align-items-center(style='height:90vh')
+          .col-md-7.col-sm-12.col-12.col-lg-7
+            h3.text-center Login
+            .student-form-login-box.p-3.row.justify-content-center.align-items-center
+              .col-12
+                form.form(action='#' autocomplete='off')
+                  .form-floating
+                    input.form-control.mb-2.form-control-sm#email(type='email' 
+                    autocomplete='off' placeholder='Enter Email Here')
+                    label.form-label(for='email') Enter Email Here
+                  .form-floating
+                    input.form-control.form-control-sm#password(type='password' placeholder='Enter Password Here' autocomplete='off') 
+                    label.form-label(for='password') Enter Password Here
+                    button.btn.btn-outline-primary.mt-3(type='submit') Sign in

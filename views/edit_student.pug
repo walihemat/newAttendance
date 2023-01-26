@@ -1,0 +1,58 @@
+extends base 
+
+block content
+  .container(style='height:100vh')
+    .row
+      .col
+        .row.justify-content-center.align-items-center(style='height:100vh')
+          .col-9.py-5.my-3
+            h3.text-center Modify<span class='text-primary'> #{student.name}</span> Account
+            .student-form-box.py-1.d-flex.justify-content-center
+              .py-3
+                form#editStudent(action='#')
+                  input.d-none#id(type='text' value=`${student._id}`)
+                  label.form-label(for='studentName') Name
+                  input.form-control.mb-1#studentName(type='text' placeholder='Name' value=`${student.name}`)
+
+                  label.form-label(for='studentClass') Class
+                  input.form-control.form-control.mb-1#studentClass(type='text' placeholder='Class' value=`${student.class}`)
+
+                  label.form-label(for='classTimeFrom') Time: From
+                  input.form-control#classTimeFrom.d-block(type='time' value=`${student.timeFrom}`)
+                  label.form-label(for='classTimeTo') Time: To
+                  input.form-control#classTimeTo.d-block.mb-2(type='time' value=`${student.timeTo}`)
+
+                  label.form-label Instructor
+                  select.form-select#StudentInstructor(disabled)
+                    if teacher 
+                      option(value=`${teacher._id}`)= teacher.name
+
+                  label.form-label(for='vacation') Off Days
+                  .w-100.mb-1
+                    select.form-control#vacation(placeholder='Off Days' multiple multiselect-search='true')
+                      each day in student.vacation
+                        option(value=`${day}` selected)=day
+                      option(value="sunday") Sunday
+                      option(value="monday") Monday
+                      option(value="tuesday") Tuesday
+                      option(value="wednesday") Wednesday
+                      option(value="thursday") Thursday
+                      option(value="friday") Friday
+                      option(value="saturday") Saturday
+                    .mt-2
+                      - let gender=student.gender
+                      .form-check
+                        if(gender=='male')
+                          input.form-check-input#studentMale(type='radio' name='gender' checked value='male')
+                          label.form-check-label Male
+                        else
+                          input.form-check-input#studentMale(type='radio' name='gender' gender value='male')
+                          label.form-check-label Male
+                      .form-check
+                        if gender=='female'
+                          input.form-check-input#studentFemale(type='radio' name='gender' value='female' checked)
+                          label.form-check-label Female
+                        else
+                          input.form-check-input#studentFemale(type='radio' name='gender' value='female')
+                          label.form-check-label Female
+                  button.btn.btn-outline-primary.my-3(type='submit') Save Changes

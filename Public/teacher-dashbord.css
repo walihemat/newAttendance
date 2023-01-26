@@ -1,0 +1,12 @@
+body {
+  background-color: #f8f8ff;
+}
+.card-section-col {
+  max-width: fit-content;
+}
+
+.card-section {
+  background-color: rgb(222, 217, 217);
+  overflow-y: scroll;
+  height: 90vh;
+}

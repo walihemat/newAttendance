@@ -1,0 +1,37 @@
+extends base
+
+block content
+
+
+  .container(style='height:100vh')
+    .row
+      .col
+        .row.justify-content-center.align-items-center(style='height:100vh')
+          .col-9.py-5.my-3
+            h3.text-center Create New Teacher
+            .addTeacher-form-box.d-flex.align-items.center.justify-content-center
+              form#addTeacher(action='#')
+                label.form-label(for='teacherName') Name
+                input.form-control.mb-1#teacherName(type='text' placeholder='Name')
+
+                label.form-label(for='teacherName') Last Name
+                input.form-control.mb-1#teacherLastName(type='text' placeholder='Last Name')
+
+                label.form-label(for='teacherClass') Class
+                input.form-control.mb-1#teacherClass(type='text' placeholder='Class')
+
+                label.form-label Gender 
+                .form-check
+                  input.form-check-input#teacherMale(type='radio' name='gender' checked value='male')
+                  label.form-check-label Male
+                .form-check
+                  input.form-check-input.mb-1#teacherFemale(type='radio' name='gender' value='female')
+                  label.form-check-label Female
+                label.form-label.my-1(for="email") Email
+                input.form-control#email(type='email' placeholder='Email')
+
+                label.form-label.my-1(for="password") Password
+                input.form-control#password(type='password' placeholder='password')
+                label.form-label.my-1(for="password") Confirm Password
+                input.form-control#passwordConfirm(type='password' placeholder='confirm password')
+                button.btn.btn-outline-primary.my-2(type='submit') Create

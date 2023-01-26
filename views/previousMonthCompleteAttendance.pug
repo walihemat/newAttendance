@@ -1,0 +1,45 @@
+
+extends base
+
+block content
+  .container
+    .mt-5.mb-1.row.align-items-end.justify-content-center(style='height: 100px')
+      h3.m-0.text-center Previous Month Attendance
+      .col-md-6.col-9
+        .d-flex.justify-content-center
+          a.btn.btn-primary.me-1(href='/completeAttendance') Current Month Attendance
+          button.btn.btn-success#previousMonthAttendaceTableDownloadBtn Download
+
+    .row.align-items-center.teacher-container-row.mx-3.mx-md-0
+      .col.salary-card-section
+        .table-responsive
+          #previousMonthAttendaceTable
+            table.table.table-striped
+              thead
+                th(scope='col') #
+                th(scope='col') Name
+                th(scope='col') Teacher Name
+                th(scope='col') Attended
+                th(scope='col') Class
+                th(scope='col') Class-Time
+                th(scope='col') Date
+
+              tbody
+                - let count = 0
+                each studentAttend in attendance
+                  if attendance.length>0
+                    tr
+                      - count++
+                      th(scope='row')= count
+                      td(scope='row')= studentAttend.name
+                      td(scope='row')= studentAttend.teacherName
+                        | 
+                        span= studentAttend.teacherLastName
+                      td(scope='row')= studentAttend.attended
+                      td(scope='row')= studentAttend.class
+                      td(scope='row')= studentAttend.startClass
+                        | 
+                        span to
+                          | 
+                          span= studentAttend.endClass
+                      td(scope='row')= new Date(studentAttend.date).toDateString()

@@ -1,0 +1,46 @@
+extends base
+
+block content
+  .container(style='height:100vh')
+    .row
+      .col
+        .row.justify-content-center.align-items-center.pt-5.mt-5
+          .col-9.rounded.border.teacher-info-card-section
+            .d-flex.justify-content-center.align-items-center
+              img.rounded-circle(src=`/images/users/${teacher.photo}`  alt=`${teacher.name} photo` width='150' ).mt-3
+            h4.text-center= teacher.name
+              | 
+              span= teacher.lastName
+            span.text-center.d-block.mb-2 <h6 class='d-inline'>Classes: </h6>
+              span.text-primary= teacher.class
+            h6.text-center Gender: 
+              span.text-primary= teacher.gender
+            h6.text-center Email: 
+              span.text-primary= teacher.email
+            h6.text-center Students
+        
+            if teacher.students.length>0
+              .teacher-students-table
+                .table-responsive
+                  table.table
+                    thead
+                      tr
+                        th(scope='col') #
+                        th(scope='col') Name
+                        th(scope='col') Class
+                        th(scope='col') Action
+                    tbody
+                    -let count = 0
+                      each student in students
+                        -count ++
+                        tr
+                          th(scope='row')= count
+                          td(scope='row')= student.name
+                          td(scope='row')= student.class
+                          td(scope='row')
+                            button.btn-sm.btn-danger.mx-1.deleteTeacherStudentBtn(value=`${[teacher._id, student._id]}`)
+                              i.bi.bi-trash
+            else
+              h6.text-danger.text-center No Students!
+
+                    

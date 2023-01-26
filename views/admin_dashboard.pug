@@ -1,0 +1,39 @@
+extends base
+
+block content 
+    .container.pt-5
+      .mt-3.mb-1.row.align-items-end.justify-content-center(style='height: 100px')
+        h3.m-0.text-center Today's Attended Students
+        .col-md-6.col-9
+          form(action='/admin_dashboard' method='GET') 
+            .input-group.d-flex.justify-content-center.align-items-center
+              input.form-control(type='text' name='adInputSearch' placeholder='Search Student' aria-describedby='after' value=`${adInputSearch}`)
+              button.btn.btn-primary#after(type='submit') Search
+      .row.align-items-center.teacher-container-row.mx-3.mx-md-0
+        .col-12.card-section.py-3
+          .row.justify-content-center.align-items-center.g-2
+            if !result
+              if attendedStudents.length<1
+                h5.text-center.text-danger No one attended yet!
+              else
+                each student in attendedStudents
+                  .col-sm-6.col-md-4.col-lg-3.xl-2.xxl-1.teacher-card.text-center
+                    .card.pb-3
+                      .card-body
+                        img(src=`/images/students/${student.gender}.png` width='100px' alt=`${student.gender}`)
+                        .card-title= student.name
+                        if student.teacher.length>0
+                          .card-card-subtitle= student.teacher[0].name
+                        else
+                          .card-card-subtitle.text-danger No teacher!
+                        if student.todayAttendance == 'teacher absent'
+                          .bg-danger.text-white= student.todayAttendance
+                        if student.todayAttendance == 'student absent'
+                          .bg-warning.text-dark= student.todayAttendance
+                        if student.todayAttendance == 'present'
+                          .bg-success.text-white= student.todayAttendance
+                        if student.todayAttendance == 'off day'
+                          .bg-primary.text-white= student.todayAttendance
+                        div= (new Date(student.date).toLocaleDateString())
+            if result
+              h6.text-center.text-danger= result

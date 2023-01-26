@@ -1,0 +1,87 @@
+extends base
+
+block content 
+  //Questions
+  .container.my-3
+    h2.text-center Frequently Asked Questions
+    .accordion.accordion-flush#accordionFlush
+      .accordion-item
+        h2.accordion-header#headingFlushOne
+          button.accordion-button.collapsed(
+            data-bs-toggle='collapse'
+            data-bs-target='#collapseFlushOne'
+            aria-expanded='true'
+            aria-controls='collapseFlushOne') Item #1
+        .accordion-collapse.collapse#collapseFlushOne(aria-labelledby='headingFlushOne')
+          .accordion-body Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+            mattis posuere consequat. Nulla fermentum sodales augue, vitae
+            ornare eros ornare quis. Donec lectus est, congue eu risus quis,
+            tempus sagittis nunc. Donec blandit accumsan augue eu bibendum.
+            Suspendisse pretium facilisis sapien, ac dignissim leo. Phasellus
+            fermentum nulla eget quam congue sagittis. Donec volutpat vel
+            sapien sit amet lobortis. Aenean non vulputate nunc, eu luctus
+            libero.
+
+      .accordion-item
+        h2.accordion-header#headingFlushTwo
+          button.accordion-button.collapsed(type='button'  data-bs-toggle='collapse' data-bs-target='#collapseFlushTwo' aria-expanded='false' aria-controls='collapseFlushTwo' ) Item #2
+        .accordion-collapse.collapse#collapseFlushTwo
+          .accordion-body Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+            mattis posuere consequat. Nulla fermentum sodales augue, vitae
+            ornare eros ornare quis. Donec lectus est, congue eu risus quis,
+            tempus sagittis nunc. Donec blandit accumsan augue eu bibendum.
+            Suspendisse pretium facilisis sapien, ac dignissim leo. Phasellus
+            fermentum nulla eget quam congue sagittis. Donec volutpat vel
+            sapien sit amet lobortis. Aenean non vulputate nunc, eu luctus
+            libero.  
+
+      .accordion-item
+        h2.accordion-header#headingFlushThree
+          button.accordion-button.collapsed(type='button'  data-bs-toggle='collapse' data-bs-target='#collapseFlushThree' aria-expanded='false' aria-controls='collapseFlushThree' ) Item #3
+        .accordion-collapse.collapse#collapseFlushThree
+          .accordion-body Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+            mattis posuere consequat. Nulla fermentum sodales augue, vitae
+            ornare eros ornare quis. Donec lectus est, congue eu risus quis,
+            tempus sagittis nunc. Donec blandit accumsan augue eu bibendum.
+            Suspendisse pretium facilisis sapien, ac dignissim leo. Phasellus
+            fermentum nulla eget quam congue sagittis. Donec volutpat vel
+            sapien sit amet lobortis. Aenean non vulputate nunc, eu luctus
+            libero.
+
+  //Instructors
+  section.bg-primary.p-3.pb-5
+    .container
+      h3.text-white.text-center.pb-3
+      .row.justify-content-center.align-items-center.gy-3.card-row
+        .col-md-4.col-lg-3.col-6
+          .card.flex-fill.teacher-card
+            .card-body
+              img.rounded-circle(src='', alt='tch')
+              h6.card-title.text-center Azizullah
+              h6.card-subtitle.text-center Hanif
+              p Lorem ipsum dolor sit amet.
+
+        .col-md-4.col-lg-3.col-6
+          .card.flex-fill.teacher-card
+            .card-body
+              img.rounded-circle(src='', alt='tch')
+              h6.card-title.text-center Azizullah
+              h6.card-subtitle.text-center Hanif
+              p Lorem ipsum dolor sit amet.
+
+        .col-md-4.col-lg-3.col-6
+          .card.flex-fill.teacher-card
+            .card-body
+              img.rounded-circle(src='', alt='tch')
+              h6.card-title.text-center Azizullah
+              h6.card-subtitle.text-center Hanif
+              p Lorem ipsum dolor sit amet.
+
+        
+        .col-md-4.col-lg-3.col-6
+          .card.flex-fill.teacher-card
+            .card-body
+              img.rounded-circle(src='', alt='tch')
+              h6.card-title.text-center Azizullah
+              h6.card-subtitle.text-center Hanif
+              p Lorem ipsum dolor sit amet.

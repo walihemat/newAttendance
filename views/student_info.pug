@@ -1,0 +1,40 @@
+extends base
+
+block content
+  .container
+    .row
+      .col
+        .row.justify-content-center.align-items-center.pt-5.mt-5
+          .col-9.rounded.border.teacher-info-card-section
+            .d-flex.justify-content-center.align-items-center
+              img.w-25.h-50.img-fluid.rounded-circle.bg-white(src=`/images/students/${student.gender}.png`  alt=`${student.name} photo` )
+            h4.text-center= student.name 
+            span.text-center.d-block.mb-2 <h6 class='d-inline'>Class: </h6>
+              span.text-primary= student.class
+            h6.text-center Gender: 
+              spnan.text-primary= student.gender
+            h6.text-center Teacher:
+              | 
+              if teacher
+                span.text-primary= teacher.name
+                | 
+                span.text-primary= teacher.lastName
+              else 
+                span.text-danger No teacher!
+            h6.text-center.mt-3 Attendance
+            .teacher-students-table
+              .table-responsive
+                table.table.striped
+                  thead
+                    tr
+                      th(scope='col') #
+                      th(scope='col') Name
+                      th(scope='col') Date
+                  tbody
+                    - let number = 1;
+                    each attend in student.curtPreMonthAtte
+                      tr
+                      th(scope='row')= number
+                      td= attend.attended
+                      td= new Date(attend.date).toDateString()
+                      - number++

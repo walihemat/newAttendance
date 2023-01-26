@@ -1,0 +1,57 @@
+extends base
+
+block content
+  .container
+    .mt-5.mb-1.row.align-items-end.justify-content-center(style='height: 60px')
+      h3.m-0.text-center
+        span.text-primary= teacher.lastName
+        span 's
+        | 
+        span Current Month Salary
+    .row.align-items-center.teacher-container-row.mx-3.mx-md-0
+      .col.salary-card-section.p-3
+        button#teacherCurrentSalaryDownloadBtn.btn.btn-success.my-1 Download
+        a.btn.btn-primary.mx-1(href=`/teacherPreviousMonthSalary/${user._id}`) Previous Month Salary
+        .table.-responsive
+          #teacherCurrentSalaryTable
+            .mb-5
+              table.table.table-success
+                thead
+                  th(scope='col') Name
+                  th(scope='col') Last Name
+                  th(scope='col') Total Hours
+                  th(scope='col') Total Classes
+                  th(scope='col') Total Salary
+                  th(scope='col') Date
+                tbody
+                  if currentMonthSalary.length>0
+                    tr
+                      td(scope='row')= currentMonthSalary[0].name
+                      td(scope='row')= currentMonthSalary[0].lastName
+                      td(scope='row')= currentMonthSalary[0].totalHours
+                      td(scope='row')= currentMonthSalary[0].totalClasses
+                      td(scope='row')= currentMonthSalary[0].salaryAmount
+                      td(scope='row')= new Date(currentMonthSalary[0].date).toLocaleDateString()
+
+            table.table.table-striped
+              thead
+                th(scope='col') #
+                th.text-center(scope='col') Name
+                th(scope='col') Total Present
+                th(scope='col') Total Absent
+                th(scope='col') Money Per Class
+                th(scope='col') Total Money
+                th.text-center(scope='col') Date
+              tbody
+                if salaryStudentBased.length>0
+                - let count=0;
+                  each student in salaryStudentBased
+                    - count ++;
+                    tr.text-center
+                      th.text-start(scope='row')= count
+                      td(scope='row')= student.name
+                      td(scope='row')= student.present
+                      td(scope='row')= student.absent
+                      td(scope='row') 100 Afs
+                      td(scope='row')= student.present*100
+                      td(scope='row')= new Date(student.date).toDateString()

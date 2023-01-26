@@ -1,0 +1,36 @@
+extends base
+
+block content
+  .container
+    .mt-5.mb-1.row.align-items-end.justify-content-center(style='height: 60px')
+      h3.m-0.text-center
+        span.text-primary= teacher.lastName
+        span 's
+        | 
+        span Previous Month Salary
+    .row.align-items-center.teacher-container-row.mx-3.mx-md-0
+      .col.salary-card-section.p-3
+        button.btn.btn-success.my-1#previousMonthTeacherSalaryBtn Download
+        a.btn.btn-primary.mx-1(href=`/teacherSalary/${user._id}`) Current Month Salary
+        .table.-responsive
+          #previousMonthTeacherSalaryTable
+            .mb-5
+              if previousMonthSalary.length>0
+                table.table.table-success
+                  thead
+                    th(scope='col') Name
+                    th(scope='col') Last Name
+                    th(scope='col') Total Hours
+                    th(scope='col') Total Classes
+                    th(scope='col') Total Salary
+                    th(scope='col') Date
+                  tbody
+                    tr
+                      td(scope='row')= previousMonthSalary[0].name
+                      td(scope='row')= previousMonthSalary[0].lastName
+                      td.text-center(scope='row')= previousMonthSalary[0].totalHours
+                      td.text-center(scope='row')= previousMonthSalary[0].totalClasses
+                      td.text-center(scope='row')= previousMonthSalary[0].salaryAmount
+                      td(scope='row')= new Date( previousMonthSalary[0].date).toLocaleDateString()
+              else
+                h6.text-center.text-danger No Data Available!

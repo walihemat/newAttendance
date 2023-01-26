@@ -1,0 +1,40 @@
+
+extends base
+
+block content
+  .container
+    .mt-5.mb-1.row.align-items-end.justify-content-center(style='height: 100px')
+      h3.m-0.text-center Current Month Salary
+      .col-md-6.col-9
+        .d-flex.justify-content-center
+          a.btn.btn-primary.me-1(href='/previousMonthSalary') Previous Month Salary
+          button.btn.btn-success#allTeacherSalaryDownloadBtn Download
+
+    .row.align-items-center.teacher-container-row.mx-3.mx-md-0
+      .col.salary-card-section
+        .table-responsive
+          #allTeacherSalaryTable
+            table.table.table-striped
+              thead
+                th(scope='col') #
+                th(scope='col') Name
+                th(scope='col') Last Name
+                th(scope='col') Total Hours
+                th(scope='col') Total Classes
+                th(scope='col') Money Per Class
+                th(scope='col') Total Salary
+                th.text-center(scope='col') Date
+              tbody
+                if teachers.length>0
+                - let count=0;
+                  each teacher in teachers
+                    - count ++
+                    tr
+                      th(scope='row')= count
+                      td(scope='row')= teacher.name
+                      td(scope='row')= teacher.lastName
+                      td(scope='row')= teacher.salary.totalPresent[teacher.salary.totalPresent.length - 1]
+                      td(scope='row')= teacher.salary.totalClasses[teacher.salary.totalClasses.length-1]
+                      td(scope='row') 100 Afs
+                      td(scope='row')= teacher.salary.salaryAmount[teacher.salary.salaryAmount.length-1]
+                      td(scope='row')= new Date(teacher.salary.salaryDate[teacher.salary.salaryDate.length-1]).toLocaleDateString()

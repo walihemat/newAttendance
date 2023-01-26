@@ -1,0 +1,31 @@
+nav.navbar.navbar-dark.bg-dark.navbar-expand-lg.fixed-top(style="z-index:100")
+  .container
+    .navbar-brand TeachTeam
+    button.navbar-toggler
+      span.navbar-toggler-icon(data-bs-toggle='collapse' data-bs-target='#navmenu')
+    .collapse.navbar-collapse#navmenu
+      ul.navbar-nav.ms-auto
+        if user
+          if user.role === 'teacher'
+            a.nav-link(href=`/teacher_dashboard/${user._id}`) Dashboard
+            a.nav-link(href=`/teacherSalary/${user._id}`) Salary
+            
+          a.logoutBtn.nav-link(type='button') Logout
+          
+          if user.role==='admin'
+            a.nav-link(href=`/admin_dashboard`) Dashboard
+            .dropdown
+              a.nav-link.dropdown-toggle#dropdownDark(type='button'  data-bs-toggle='dropdown') More
+              .dropdown-menu.dropdown-menu-dark
+                a.nav-link.dropdown-item(href='/admin_attend_students') Take Attendance
+                a.nav-link.dropdown-item(href='/add_teacher') Add Instructor
+                a.nav-link.dropdown-item(href='/teachers') Instructors
+                a.nav-link.dropdown-item(href='/add_student') Add Student
+                a.nav-link.dropdown-item(href='/students' ) Students
+                a.nav-link.dropdown-item(href='/completeAttendance') Current Month Attendance
+                a.nav-link.dropdown-item(href='/allTeacherSalary') Salary
+          a.nav-link(href='/changePassword') change Password
+          img.rounded-circle.d-none.d-lg-block(src=`/images/users/${user.photo}` alt='' style='width: 40px')
+
+        else
+          a.nav-link(href='/login') Login

@@ -1,0 +1,48 @@
+extends base
+
+block content
+
+  .container(style='height:100vh')
+      .row
+        .col
+          .row.justify-content-center.align-items-center(style='height:100vh')
+            .col-9.py-5.my-3
+              h3.text-center Update <span class='text-primary'> #{teacher.name} </span> Account
+              .student-form-box.d-flex.align-items.center.justify-content-center
+                .p-3
+                  input.d-none#teacherId(type="text" value=`${teacher._id}` name='teacherId')
+                  form#editTeacher
+                    label.form-label(for='teacherName') Name
+                    input.form-control.mb-1#teacherName(type='text' placeholder='Name' value=`${teacher.name}` name='teacherName')
+
+                    label.form-label(for='teacherLastName') Last Name
+                    input.form-control.mb-1#teacherLastName(type='text' placeholder='Last Name' value=`${teacher.lastName}` name='teacherLastName')
+                    
+                    label.form-label.mt-1(for="teacherStudents") Add Student (s)
+                    .w-100.mb-1
+                      select.form-control.w-100#teacherStudents(placeholder='Off Days' multiple multiselect-search='true' name='teacherStudents')
+                        each student in Allstudents
+                          option(value=`${student._id}`)= student.name
+
+                    label.form-label(for='teacherClass') Class
+                    input.form-control.mb-1#teacherClass(type='text' placeholder='Class' value=`${teacher.class}` name='teacherClass')
+
+                    label.form-label Gender 
+                    - let gender = teacher.gender
+                      .form-check
+                        if(gender=='male')
+                          input.form-check-input#studentMale(type='radio' name='gender' checked value='male')
+                          label.form-check-label Male
+                        else
+                          input.form-check-input#studentMale(type='radio' name='gender' gender value='male')
+                          label.form-check-label Male
+                      .form-check
+                        if gender=='female'
+                          input.form-check-input#studentFemale(type='radio' name='gender' value='female' checked)
+                          label.form-check-label Female
+                        else
+                          input.form-check-input#studentFemale(type='radio' name='gender' value='female')
+                          label.form-check-label Female
+                    label.form-label.my-1(for="email" ) Email
+                    input.form-control#email(type='email' placeholder='Email' value=`${teacher.email}` name='email')
+                    button.btn.btn-outline-primary.my-2.mx-auto(type='submit') Save Changes
