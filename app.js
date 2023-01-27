@@ -32,11 +32,26 @@ app.use(cors());
 
 app.options("*", cors());
 
+app.use(function (req, res, next) {
+  res.setHeader(
+    'Content-Security-Policy-Report-Only', "default-src 'self' https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js ; script-src  'self' ; style-src 'self' https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js; "
+  );
+  
+  next();
+});
+
+
 //Serving static files
 app.use(express.static(`${__dirname}/public`));
 
 // Set security http headers
-app.use(helmet());
+// app.use(helmet());
+
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
 
 // Development logging
 if (process.env.NODE_ENV === "development") {
