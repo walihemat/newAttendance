@@ -1,6 +1,18 @@
 extends base
 
 block content 
+
+  //Showcase
+  .bg-dark.text-light.pt-5
+    .container
+      .d-flex.justify-content-center.align-items-center
+        div
+          h2.text-center learn
+            | 
+            span.text-warning At Your Home
+          p.lead.text-start TeachTeam helps both you and your children with learning English, Pashto, Dari, Islamic education, recitation of Holy Qur'an, and many more at your home with your own pace. In addition, with TeachTeam, you will pass your tests of citizenship, driving liscence, and job's interviews.
+        img.img-fluid.w-25.ms-0.ms-sm-3.align-self-stretch.bg-light.rounded.d-none.d-sm-block(src='./images/LOGO_TECH-1.png' alt='TeachTeam Logo' )
+
   //Questions
   .container.my-3
     h2.text-center Frequently Asked Questions
@@ -11,77 +23,80 @@ block content
             data-bs-toggle='collapse'
             data-bs-target='#collapseFlushOne'
             aria-expanded='true'
-            aria-controls='collapseFlushOne') Item #1
+            aria-controls='collapseFlushOne') What is the purpose of TeachTeam?
         .accordion-collapse.collapse#collapseFlushOne(aria-labelledby='headingFlushOne')
-          .accordion-body Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            mattis posuere consequat. Nulla fermentum sodales augue, vitae
-            ornare eros ornare quis. Donec lectus est, congue eu risus quis,
-            tempus sagittis nunc. Donec blandit accumsan augue eu bibendum.
-            Suspendisse pretium facilisis sapien, ac dignissim leo. Phasellus
-            fermentum nulla eget quam congue sagittis. Donec volutpat vel
-            sapien sit amet lobortis. Aenean non vulputate nunc, eu luctus
-            libero.
+          .accordion-body TeachTeam is an online platform, which is located in Kandahar, Afghanistan. It's main goal is to help students and indviduals learn English, Dari, Pashto, mathematics, recitation of Holy Qur'an, Islamic education, and others. In addition, TeachTeam has experienced teachers who can also assist you pass your liscense, citezenship tests and job's interviews.
 
       .accordion-item
         h2.accordion-header#headingFlushTwo
-          button.accordion-button.collapsed(type='button'  data-bs-toggle='collapse' data-bs-target='#collapseFlushTwo' aria-expanded='false' aria-controls='collapseFlushTwo' ) Item #2
+          button.accordion-button.collapsed(type='button'  data-bs-toggle='collapse' data-bs-target='#collapseFlushTwo' aria-expanded='false' aria-controls='collapseFlushTwo' ) How to join TeachTeam?
         .accordion-collapse.collapse#collapseFlushTwo
-          .accordion-body Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            mattis posuere consequat. Nulla fermentum sodales augue, vitae
-            ornare eros ornare quis. Donec lectus est, congue eu risus quis,
-            tempus sagittis nunc. Donec blandit accumsan augue eu bibendum.
-            Suspendisse pretium facilisis sapien, ac dignissim leo. Phasellus
-            fermentum nulla eget quam congue sagittis. Donec volutpat vel
-            sapien sit amet lobortis. Aenean non vulputate nunc, eu luctus
-            libero.  
-
+          .accordion-body Joining with TeachTeam is very easy! Just contact us through WhatsApp or using our email address.
+            br
+            br
+            span WhatsApp: <span class='text-secondary'> +93705422963 </span>
+            br
+            br
+            | 
+            span Email Add: <span class='text-secondary'> wali.hemat@auaf.edu.af</span>
+        
       .accordion-item
         h2.accordion-header#headingFlushThree
-          button.accordion-button.collapsed(type='button'  data-bs-toggle='collapse' data-bs-target='#collapseFlushThree' aria-expanded='false' aria-controls='collapseFlushThree' ) Item #3
+          button.accordion-button.collapsed(type='button'  data-bs-toggle='collapse' data-bs-target='#collapseFlushThree' aria-expanded='false' aria-controls='collapseFlushThree' ) Pricing and Payments Methods
         .accordion-collapse.collapse#collapseFlushThree
-          .accordion-body Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            mattis posuere consequat. Nulla fermentum sodales augue, vitae
-            ornare eros ornare quis. Donec lectus est, congue eu risus quis,
-            tempus sagittis nunc. Donec blandit accumsan augue eu bibendum.
-            Suspendisse pretium facilisis sapien, ac dignissim leo. Phasellus
-            fermentum nulla eget quam congue sagittis. Donec volutpat vel
-            sapien sit amet lobortis. Aenean non vulputate nunc, eu luctus
-            libero.
+          .accordion-body TeachTeam charges 50 dollars per month if you live outside Afghanistan. But the pricing varies country to country. For addition information please Contact TeachTeam.
+            br
+            span You can pay your monthly fee by using paypal. And that's how easy it is!
 
   //Instructors
-  section.bg-primary.p-3.pb-5
+  section.bg-primary.pb-5
     .container
       h3.text-white.text-center.pb-3
-      .row.justify-content-center.align-items-center.gy-3.card-row
-        .col-md-4.col-lg-3.col-6
-          .card.flex-fill.teacher-card
+      .row.justify-content-center.g-2
+        .col-md-4.col-lg-3.col-sm-6.col-xl-2
+          .card.teacher-card.h-100
+            img.mx-auto.rounded-circle.mt-2(src='/images/users/default.png', alt='tch' width='100')
             .card-body
-              img.rounded-circle(src='', alt='tch')
               h6.card-title.text-center Azizullah
               h6.card-subtitle.text-center Hanif
-              p Lorem ipsum dolor sit amet.
+              p Mr. Hanif is one of our best teachers who has 5 years plus experiences in teaching English and lisence.
 
-        .col-md-4.col-lg-3.col-6
-          .card.flex-fill.teacher-card
+        .col-md-4.col-lg-3.col-sm-6.col-xl-2
+          .card.teacher-card.h-100
             .card-body
               img.rounded-circle(src='', alt='tch')
-              h6.card-title.text-center Azizullah
-              h6.card-subtitle.text-center Hanif
-              p Lorem ipsum dolor sit amet.
+              h6.card-title.text-center Khan Mohammad
+              h6.card-subtitle.text-center Afghanmal
+              p Mr. Afghanmal is among the greatest teachers who is professional and talented  in teaching English and mathematics with more than three years experiences.
 
-        .col-md-4.col-lg-3.col-6
-          .card.flex-fill.teacher-card
+        .col-md-4.col-lg-3.col-sm-6.col-xl-2
+          .card.teacher-card.h-100
             .card-body
               img.rounded-circle(src='', alt='tch')
-              h6.card-title.text-center Azizullah
-              h6.card-subtitle.text-center Hanif
-              p Lorem ipsum dolor sit amet.
+              h6.card-title.text-center Hafiz Mohammad Yunas
+              h6.card-subtitle.text-center Ozairi
+              p Ozairi is a calm talent in our course who is best in teaching Islamic education and Holy Qur'an with more than five years experiences.
 
-        
-        .col-md-4.col-lg-3.col-6
-          .card.flex-fill.teacher-card
+        .col-md-4.col-lg-3.col-sm-6.col-xl-2
+          .card.teacher-card.h-100
             .card-body
               img.rounded-circle(src='', alt='tch')
-              h6.card-title.text-center Azizullah
-              h6.card-subtitle.text-center Hanif
-              p Lorem ipsum dolor sit amet.
+              h6.card-title.text-center Mohammad Ismail 
+              h6.card-subtitle.text-center Ebrahimi
+              p Mr. Ebrahimi, a gorgeous and professional figure is one of our best teachers with four years plus experiences.
+
+        .col-md-4.col-lg-3.col-sm-6.col-xl-2
+          .card.teacher-card.h-100
+            .card-body
+              img.rounded-circle(src='', alt='tch')
+              h6.card-title.text-center Esmat 
+              h6.card-subtitle.text-center Aryan
+              p Mr. Aryan is an experienced teacher who is unique in teaching Pashto and English with plus four years experiences.
+
+        .col-md-4.col-lg-3.col-sm-6.col-xl-2
+          .card.teacher-card.h-100
+            .card-body
+              img.rounded-circle(src='', alt='tch')
+              h6.card-title.text-center Ahmad Wali 
+              h6.card-subtitle.text-center Hemat
+              p Mr. Hemat has more than four years experiences in teaching English, and being a junior web developer makes him uncompatible.

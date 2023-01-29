@@ -635,7 +635,7 @@ const secondPartOfAutomateSalaryCalculate = async () => {
       totalSalary.push(sumOftotalPresent);
     }
     if (totalPresent.length == 1) {
-      totalSalary.push(1);
+      totalSalary.push(totalPresent[0]);
     }
 
     if (teacher.salary.salaryDate.length > 0) {
