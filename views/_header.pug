@@ -6,6 +6,7 @@ nav.navbar.navbar-dark.bg-dark.navbar-expand-lg.fixed-top(style="z-index:100")
     .collapse.navbar-collapse#navmenu
       ul.navbar-nav.ms-auto
         if user
+          a.nav-link(href=`/`) Home
           if user.role === 'teacher'
             a.nav-link(href=`/teacher_dashboard/${user._id}`) Dashboard
             a.nav-link(href=`/teacherSalary/${user._id}`) Salary
