@@ -6,7 +6,7 @@ block content
       .col
         .row.justify-content-center.align-items-center(style='height:100vh')
           .col-9.py-5.my-3
-            h3.text-center Create New Student
+            h3.text-center Create New Class
             .student-form-box.py-1.d-flex.justify-content-center
               .py-3
                 form#addStudent(action='#')
@@ -23,9 +23,11 @@ block content
 
                   label.form-label Instructor
                   .w-100.mb-1
-                    select.form-control#studentInstructor(placeholder='Off Days' multiple multiselect-search='true' style='width:50vw')
+                    select.form-control#studentInstructor(placeholder='Instructor' multiple multiselect-search='true' style='width:50vw')
                       each teacher in teachers
                         option(value=`${teacher._id}`)= teacher.name
+                          | 
+                          span= teacher.lastName
                     .mt-2
                   label.form-label(for='vacation') Off Days
                   .w-100.mb-1
