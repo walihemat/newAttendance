@@ -84,25 +84,33 @@ app.use(xss());
 // app.use(express.static(path.join(__dirname, "public")));
 
 // automatically absent or off day
-const Days = [
-  "sunday",
-  "monday",
-  "tuesday",
-  "wednesday",
-  "thursday",
-  "friday",
-  "saturday",
-];
 
-const tomoDate = new Date();
-const vacations = Days[new Date().getDay()];
-const dateFilter = tomoDate.setDate(tomoDate.getDate() - 1);
-
-const tomorrow = tomoDate.setDate(tomoDate.getDate() - 1);
-
-const currentDate = new Date();
 
 const getAttendance = async () => {
+
+
+
+  const Days = [
+    "sunday",
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+  ];
+  
+  const tomoDate = new Date();
+  const vacations = Days[new Date().getDay()];
+  const dateFilter = tomoDate.setDate(tomoDate.getDate() - 1);
+  
+  const tomorrow = tomoDate.setDate(tomoDate.getDate() - 1);
+  
+  const currentDate = new Date();
+
+
+
+
   const attendance = await Attendance.find();
   const my = attendance.map((el) => {
     if (el.vacation.includes(vacations)) {

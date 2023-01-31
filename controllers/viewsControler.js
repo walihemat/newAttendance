@@ -6,7 +6,8 @@ const Student = require("./../models/attendanceModel");
 const catchAsync = require("./../utils/catchAsync");
 const AppErorr = require("./../utils/appError");
 
-var d = new Date();
+const getPreviousMonth= ()=>{
+  var d = new Date();
   var newMonth = d.getMonth() - 1;
 
   if (newMonth < 0) {
@@ -14,6 +15,8 @@ var d = new Date();
     d.setYear(d.getFullYear() - 1); // use getFullYear instead of getYear !
   }
   const previusMonth = new Date(d.setMonth(newMonth));
+  return previusMonth
+}
 
 exports.getOverview = catchAsync(async (req, res, next) => {
   // 1) get tour data from collection
@@ -177,6 +180,7 @@ exports.getStudents = catchAsync(async (req, res, next) => {
 
 
 exports.getStudent = catchAsync(async (req, res, next) => {
+  let previusMonth = getPreviousMonth();
   let page = "edit_student";
   if (req.url.startsWith("/student_info")) {
     page = "student_info";
@@ -468,16 +472,8 @@ exports.getTeacherSalary = catchAsync(async (req, res, next) => {
 });
 
 exports.getTeacherSalaryPreviousMonth = catchAsync(async (req, res, next) => {
-  // var d = new Date();
-  // var newMonth = d.getMonth() - 1;
 
-  // if (newMonth < 0) {
-  //   newMonth += 12;
-  //   d.setYear(d.getFullYear() - 1); // use getFullYear instead of getYear !
-  // }
-  // const previusMonth = new Date(d.setMonth(newMonth));
-
-  // const previousMonthSalary = [];
+  let previusMonth = getPreviousMonth();
 
   const teacher = await Teacher.findById(req.params.id);
 
@@ -513,6 +509,8 @@ const caculateTeacherSalaryAutomatically = catchAsync(async () => {
   //   d.setYear(d.getFullYear() - 1); // use getFullYear instead of getYear !
   // }
   // const previusMonth = new Date(d.setMonth(newMonth));
+
+  let previusMonth = getPreviousMonth();
 
   const teachers = await Teacher.find({ role: "teacher" }).populate({
     path: "students",
@@ -592,14 +590,8 @@ const caculateTeacherSalaryAutomatically = catchAsync(async () => {
 // caculateTeacherSalaryAutomatically();
 
 const secondPartOfAutomateSalaryCalculate = async () => {
-  // var d = new Date();
-  // var newMonth = d.getMonth() - 1;
 
-  // if (newMonth < 0) {
-  //   newMonth += 12;
-  //   d.setYear(d.getFullYear() - 1); // use getFullYear instead of getYear !
-  // }
-  // const previusMonth = new Date(d.setMonth(newMonth));
+  let previusMonth = getPreviousMonth();
 
   const teachers = await Teacher.find({ role: "teacher" });
 
@@ -737,6 +729,8 @@ exports.previusMonthSalary = catchAsync(async (req, res, next) => {
   // }
   // const previusMonth = new Date(d.setMonth(newMonth));
 
+  let previusMonth = getPreviousMonth();
+
   const teachers = await Teacher.find({ role: "teacher" }).populate("students");
 
   const previousMonthTeacherSalary = [];
@@ -857,14 +851,8 @@ exports.previousMonthCompleteAttendance = catchAsync(async (req, res, next) => {
   if (req.url.startsWith("/student_info")) {
     page = "student_info";
   }
-  // var d = new Date();
-  // var newMonth = d.getMonth() - 1;
 
-  // if (newMonth < 0) {
-  //   newMonth += 12;
-  //   d.setYear(d.getFullYear() - 1); // use getFullYear instead of getYear !
-  // }
-  // const previusMonth = new Date(d.setMonth(newMonth));
+  let previusMonth = getPreviousMonth();
 
   const students = await Student.find();
   let previousMonthAttendedStudents = [];
@@ -1072,8 +1060,8 @@ cron.schedule("40 * * * * *", () => {
   caculateTeacherSalaryAutomatically();
   setTimeout(() => {
     removeUnnessaryPhoto();
-  }, 3000);
+  }, 7000);
   setTimeout(() => {
     secondPartOfAutomateSalaryCalculate();
-  }, 5000);
+  }, 15000);
 });

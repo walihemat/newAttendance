@@ -8,7 +8,8 @@ const catchAysnc = require("./../utils/catchAsync");
 const AppError = require("./../utils/appError");
 
 
-var d = new Date();
+const getPreviousMonth= ()=>{
+  var d = new Date();
   var newMonth = d.getMonth() - 1;
 
   if (newMonth < 0) {
@@ -16,6 +17,10 @@ var d = new Date();
     d.setYear(d.getFullYear() - 1); // use getFullYear instead of getYear !
   }
   const previusMonth = new Date(d.setMonth(newMonth));
+  return previusMonth
+}
+
+
 
 exports.getAllAttendance = catchAysnc(async (req, res, next) => {
   const attendances = await Attandance.find();
@@ -195,7 +200,7 @@ exports.removeTeacherStudent = catchAsync(async (req, res, next) => {
 });
 
 const AutoDeleteOutDatedAttendanceRecods = catchAsync(async () => {
-  
+  let previusMonth = getPreviousMonth();
 
   const students = await Attendance.find();
   students.forEach((student) => {
