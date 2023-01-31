@@ -14,7 +14,7 @@ block content
         .row.justify-content-center.g-2
           if !result
             each student in students
-              .col-sm-6.col-md-4.col-lg-3.xl-2.xxl-1.teacher-card.text-center.h-100
+              .col-sm-6.col-md-4.col-lg-3.xl-2.xxl-1.teacher-card.text-center
                 .card.pb-3.h-100
                   .card-body
                     img(src=`./images/students/${student.gender}.png` width='70' alt='pc')
@@ -23,7 +23,7 @@ block content
                       .card-card-subtitle= student.teacherName
                     else 
                       .card-card-subtitle.text-danger No Teacher!
-                  .my-2.d-flex.justify-content-center.align-items-center
+                  .my-2.d-flex.justify-content-center.align-items-end
                       button.btn-sm.btn-danger.mx-1.deleteStudentBtn( value=`${student._id}`)
                         i.bi.bi-trash
                       a.btn-sm.btn-warning.mx-1(href=`/edit_student/${student.id}` )
