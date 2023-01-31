@@ -226,6 +226,25 @@ exports.login = (req, res) => {
   });
 };
 
+
+function changeTimeZone(date, timeZone) {
+  if (typeof date === 'string') {
+    return new Date(
+      new Date(date).toLocaleString('en-US', {
+        timeZone,
+      }),
+    );
+  }
+
+  return new Date(
+    date.toLocaleString('en-US', {
+      timeZone,
+    }),
+  );
+}
+
+
+
 exports.getTodayAttendedStudents = catchAsync(async (req, res, next) => {
   let students = await Student.find().populate({
     path: "teacher",
@@ -284,8 +303,10 @@ exports.getTodayAttendedStudents = catchAsync(async (req, res, next) => {
     return;
   }
 
-  const  currentDate = new Date();
-  const currentTime= currentDate.getHours() + " : " + currentDate.getMinutes() + " / " + currentDate.toDateString()
+
+  const laDate = changeTimeZone(new Date(), 'Asia/kabul');
+  
+  const currentTime= laDate.getHours() + " : " + laDate.getMinutes() + " / " + laDate.toDateString()
 
   res.status(200).render("admin_dashboard", {
     title: "Attended Students",
