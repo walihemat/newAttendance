@@ -302,7 +302,7 @@ exports.getTodayAttendedStudents = catchAsync(async (req, res, next) => {
     return;
   }
   
-  const currentTime= laDate.getHours() + " : " + laDate.getMinutes() + " / " + laDate.toDateString() + new Date(laDate)
+  const currentTime= laDate.getHours() + " : " + laDate.getMinutes() + " / " + laDate.toDateString() + new Date().getDate()
 
   res.status(200).render("admin_dashboard", {
     title: "Attended Students",
