@@ -2,9 +2,10 @@
 extends base
 
 block content
-  .container
+  .container.pt-5.pt-md-0
     .mt-3.mb-1.row.align-items-end.justify-content-center(style='height: 100px')
-      h3.m-0.text-center
+      .col-sm-12.col-md-auto.d-flex.justify-content-center
+        span#digitalClock
       .col-md-6.col-9
         form(action=`/admin_attend_students` method='GET')
           .input-group.d-flex.justify-content-center.align-items-center

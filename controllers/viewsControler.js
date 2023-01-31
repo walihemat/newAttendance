@@ -300,6 +300,8 @@ exports.getTodayAttendedStudents = catchAsync(async (req, res, next) => {
   });
 });
 
+
+
 const display12HoursTime = (hour, minute) => {
   let dd = "AM";
   let h = hour;
@@ -314,6 +316,14 @@ const display12HoursTime = (hour, minute) => {
     ? "0" + h + ":" + minute + " " + dd
     : h + ":" + minute + " " + dd;
 };
+
+const digitalClock = ()=>{
+  const d = new Date();
+  const hour= d.getHours();
+  const minutes = d.getMinutes();
+
+  return display12HoursTime(hour, minutes)
+}
 
 exports.teacherAttendStudents = catchAsync(async (req, res, next) => {
   const teacher = await Teacher.findById(req.params.id).populate({

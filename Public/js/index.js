@@ -385,3 +385,34 @@ if (adteacherAbsentBtn) {
     });
   });
 }
+
+const display12HoursTime = (hour, minute, seconds) => {
+  let dd = "AM";
+  let h = hour;
+  if (h >= 12) {
+    h = hour - 12;
+    dd = "PM";
+  }
+  if (h == 0) {
+    h = 12;
+  }
+  return h < 10
+    ? "0" + h + " : " + minute + " : " + seconds + " " + dd + "  " + new Date().toLocaleDateString()
+    : h + " : " + minute + " : " + seconds + " " + dd+ "  " + new Date().toLocaleDateString()
+};
+
+const digitalClock = ()=> {
+  const d = new Date();
+  const hour = d.getHours();
+  const minute = d.getMinutes();
+  const seconds = d.getSeconds();
+  return display12HoursTime(hour, minute, seconds);
+}
+
+const digitalClockPara = document.getElementById('digitalClock');
+
+if(digitalClockPara){
+  window.setInterval(()=> {
+    digitalClockPara.textContent = digitalClock();
+  })
+}
