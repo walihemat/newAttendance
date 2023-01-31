@@ -131,7 +131,7 @@ const getAttendance = async () => {
       new Date(el.attendance.date[el.attendance.date.length - 1]).getDate() !==
         new Date().getDate() &&
       new Date().getHours() == 23 &&
-      new Date().getMinutes() > 57
+      new Date().getMinutes() > 50
     ) {
       el.attendance.attended.push("teacher absent");
       el.attendance.date.push(Date.now());

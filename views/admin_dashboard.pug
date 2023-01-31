@@ -5,6 +5,7 @@ block content
       .mt-3.mb-1.row.align-items-end.justify-content-center(style='height: 100px')
         h3.m-0.text-center Today's Attended Students
         .col-md-6.col-9
+          p.text-primary= currentTime
           form(action='/admin_dashboard' method='GET') 
             .input-group.d-flex.justify-content-center.align-items-center
               input.form-control(type='text' name='adInputSearch' placeholder='Search Student' aria-describedby='after' value=`${adInputSearch}`)
