@@ -24,7 +24,7 @@ function changeTimeZone(date, timeZone) {
 
 let laDate = changeTimeZone(new Date(), 'Asia/kabul');
 
-var d = laDate = changeTimeZone(new Date(), 'Asia/kabul');;
+var d =  changeTimeZone(new Date(), 'Asia/kabul');;
   var newMonth = d.getMonth() - 1;
 
   if (newMonth < 0) {
