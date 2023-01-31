@@ -6,25 +6,7 @@ const Student = require("./../models/attendanceModel");
 const catchAsync = require("./../utils/catchAsync");
 const AppErorr = require("./../utils/appError");
 
-function changeTimeZone(date, timeZone) {
-  if (typeof date === 'string') {
-    return new Date(
-      new Date(date).toLocaleString('en-US', {
-        timeZone,
-      }),
-    );
-  }
-
-  return new Date(
-    date.toLocaleString('en-US', {
-      timeZone,
-    }),
-  );
-}
-
-let laDate = changeTimeZone(new Date(), 'Asia/kabul');
-
-var d =  changeTimeZone(new Date(), 'Asia/kabul');;
+var d = new Date();
   var newMonth = d.getMonth() - 1;
 
   if (newMonth < 0) {
@@ -220,8 +202,8 @@ exports.getStudent = catchAsync(async (req, res, next) => {
       }
 
       if (
-        new Date(date).getMonth() === laDate.getMonth() &&
-        new Date(date).getFullYear() === laDate.getFullYear()
+        new Date(date).getMonth() === new Date().getMonth() &&
+        new Date(date).getFullYear() === new Date().getFullYear()
       ) {
         attendancePreAndCurMonth.push({
           date,
@@ -248,6 +230,7 @@ exports.login = (req, res) => {
 };
 
 exports.getTodayAttendedStudents = catchAsync(async (req, res, next) => {
+  
   let students = await Student.find().populate({
     path: "teacher",
     select: "name",
@@ -269,9 +252,9 @@ exports.getTodayAttendedStudents = catchAsync(async (req, res, next) => {
   students.forEach((student) => {
     student.attendance.date.map((attend, i) => {
       if (
-        new Date(attend).getDate() == laDate.getDate() &&
-        new Date(attend).getMonth() == laDate.getMonth() &&
-        new Date(attend).getFullYear() == laDate.getFullYear()
+        new Date(attend).getDate() == new Date().getDate() &&
+        new Date(attend).getMonth() == new Date().getMonth() &&
+        new Date(attend).getFullYear() == new Date().getFullYear()
       ) {
         attendedStudents.push({
           date: attend,
@@ -304,15 +287,12 @@ exports.getTodayAttendedStudents = catchAsync(async (req, res, next) => {
     res.redirect("/admin_dashboard");
     return;
   }
-  
-  const currentTime= laDate.getHours() + " : " + laDate.getMinutes() + " / " + laDate.toDateString() + new Date(laDate).getHours()
 
   res.status(200).render("admin_dashboard", {
     title: "Attended Students",
     attendedStudents,
     result,
     adInputSearch,
-    currentTime
   });
 });
 
@@ -373,9 +353,9 @@ exports.teacherAttendStudents = catchAsync(async (req, res, next) => {
     );
     student.attendance.date.forEach((attend, i) => {
       if (
-        new Date(attend).getDate() == laDate.getDate() &&
-        new Date(attend).getMonth() == laDate.getMonth() &&
-        new Date(attend).getFullYear() == laDate.getFullYear()
+        new Date(attend).getDate() == new Date().getDate() &&
+        new Date(attend).getMonth() == new Date().getMonth() &&
+        new Date(attend).getFullYear() == new Date().getFullYear()
       ) {
         attendedStudents.push({
           date: attend,
@@ -399,10 +379,10 @@ exports.teacherAttendStudents = catchAsync(async (req, res, next) => {
     if (
       new Date(
         student.attendance.date[student.attendance.date.length - 1]
-      ).getDate() != laDate.getDate() ||
+      ).getDate() != new Date().getDate() ||
       new Date(
         student.attendance.date[student.attendance.date.length - 1]
-      ).getMonth() != laDate.getMonth()
+      ).getMonth() != new Date().getMonth()
     ) {
       attendedStudents.push({
         id: student._id,
@@ -465,8 +445,8 @@ exports.getTeacherSalary = catchAsync(async (req, res, next) => {
 
   teacher.salary.salaryDate.forEach((date, i) => {
     if (
-      new Date(date).getMonth() == laDate.getMonth() &&
-      new Date(date).getFullYear() == laDate.getFullYear()
+      new Date(date).getMonth() == new Date().getMonth() &&
+      new Date(date).getFullYear() == new Date().getFullYear()
     ) {
       currentMonthSalary.push({
         name: teacher.name,
@@ -547,8 +527,8 @@ const caculateTeacherSalaryAutomatically = catchAsync(async () => {
         let absentCount = 1;
         student.attendance.date.forEach((date, i) => {
           if (
-            new Date(date).getFullYear() === laDate.getFullYear() &&
-            new Date(date).getMonth() === laDate.getMonth()
+            new Date(date).getFullYear() === new Date().getFullYear() &&
+            new Date(date).getMonth() === new Date().getMonth()
           ) {
             if (
               student.attendance.attended[i] === "present" ||
@@ -575,8 +555,8 @@ const caculateTeacherSalaryAutomatically = catchAsync(async () => {
     teacher.studentsAttendanceTotal.forEach((stAtTo, i) => {
       if (
         !teacherStudentsIds.includes(stAtTo.id.toString()) &&
-        new Date(stAtTo.date).getMonth() === laDate.getMonth() &&
-        new Date(stAtTo.date).getFullYear() === laDate.getFullYear()
+        new Date(stAtTo.date).getMonth() === new Date().getMonth() &&
+        new Date(stAtTo.date).getFullYear() === new Date().getFullYear()
       ) {
         teacherSalary.push(stAtTo);
       }
@@ -588,7 +568,7 @@ const caculateTeacherSalaryAutomatically = catchAsync(async () => {
         teacherSalary.push(stAtTo);
       }
       if (
-        new Date(stAtTo.date).getMonth() !== laDate.getMonth() &&
+        new Date(stAtTo.date).getMonth() !== new Date().getMonth() &&
         new Date(stAtTo.date).getMonth() !== previusMonth.getMonth()
       ) {
         teacher.studentsAttendanceTotal.splice(i, 1);
@@ -601,7 +581,7 @@ const caculateTeacherSalaryAutomatically = catchAsync(async () => {
         id: sstudent._id,
         present: sstudent.present,
         absent: sstudent.absent,
-        date: laDate,
+        date: new Date(),
       });
     });
     teacher.studentsAttendanceTotal = teacherSalary;
@@ -632,8 +612,8 @@ const secondPartOfAutomateSalaryCalculate = async () => {
     const totalPresent = [];
     teacher.studentsAttendanceTotal.forEach((salaryStudent) => {
       if (
-        new Date(salaryStudent.date).getMonth() == laDate.getMonth() &&
-        new Date(salaryStudent.date).getFullYear() == laDate.getFullYear()
+        new Date(salaryStudent.date).getMonth() == new Date().getMonth() &&
+        new Date(salaryStudent.date).getFullYear() == new Date().getFullYear()
       ) {
         totalPresent.push(salaryStudent.present);
       }
@@ -666,14 +646,14 @@ const secondPartOfAutomateSalaryCalculate = async () => {
       if (
         new Date(
           teacher.salary.salaryDate[teacher.salary.salaryDate.length - 1]
-        ).getMonth() === laDate.getMonth() &&
+        ).getMonth() === new Date().getMonth() &&
         new Date(
           teacher.salary.salaryDate[teacher.salary.salaryDate.length - 1]
-        ).getFullYear() === laDate.getFullYear()
+        ).getFullYear() === new Date().getFullYear()
       ) {
         salaryAmount[salaryAmount.length - 1] = totalSalary * 100;
 
-        salaryDate[salaryDate.length - 1] = laDate;
+        salaryDate[salaryDate.length - 1] = new Date();
         if (totalSalary.length > 0) {
           allPresent[allPresent.length - 1] = totalSalary[0];
         }
@@ -687,7 +667,7 @@ const secondPartOfAutomateSalaryCalculate = async () => {
         }
       } else {
         salaryAmount.push(totalSalary * 100);
-        salaryDate.push(laDate);
+        salaryDate.push(new Date());
         if (totalSalary.length > 0) {
           allPresent.push(totalSalary[0]);
         } else {
@@ -702,7 +682,7 @@ const secondPartOfAutomateSalaryCalculate = async () => {
     }
     if (teacher.salary.salaryDate.length == 0) {
       salaryAmount.push(totalSalary[0] * 100);
-      salaryDate.push(laDate);
+      salaryDate.push(new Date());
       if (totalSalary.length > 0) {
         allPresent.push(totalSalary[0]);
       } else {
@@ -718,7 +698,7 @@ const secondPartOfAutomateSalaryCalculate = async () => {
     if (teacher.salary.salaryDate.length > 0) {
       teacher.salary.salaryDate.forEach((slDate, I) => {
         if (
-          new Date(slDate).getMonth() !== laDate.getMonth() &&
+          new Date(slDate).getMonth() !== new Date().getMonth() &&
           new Date(slDate).getMonth() !== previusMonth.getMonth()
         ) {
           salaryDate.splice(I, 1);
@@ -835,8 +815,8 @@ exports.currentMonthCompleteAttendance = catchAsync(async (req, res, nest) => {
 
     student.attendance.date.forEach((date, i) => {
       if (
-        new Date(date).getMonth() == laDate.getMonth() &&
-        new Date(date).getFullYear() == laDate.getFullYear()
+        new Date(date).getMonth() == new Date().getMonth() &&
+        new Date(date).getFullYear() == new Date().getFullYear()
       ) {
         if (student.teacher.length > 0) {
           currentMonthAttendedStudents.push({
@@ -1014,9 +994,9 @@ exports.adminAttendStudents = catchAsync(async (req, res, next) => {
     );
     student.attendance.date.forEach((attend, i) => {
       if (
-        new Date(attend).getDate() == laDate.getDate() &&
-        new Date(attend).getMonth() == laDate.getMonth() &&
-        new Date(attend).getFullYear() == laDate.getFullYear()
+        new Date(attend).getDate() == new Date().getDate() &&
+        new Date(attend).getMonth() == new Date().getMonth() &&
+        new Date(attend).getFullYear() == new Date().getFullYear()
       ) {
         attendedStudents.push({
           date: attend,
@@ -1039,10 +1019,10 @@ exports.adminAttendStudents = catchAsync(async (req, res, next) => {
     if (
       new Date(
         student.attendance.date[student.attendance.date.length - 1]
-      ).getDate() != laDate.getDate() ||
+      ).getDate() != new Date().getDate() ||
       new Date(
         student.attendance.date[student.attendance.date.length - 1]
-      ).getMonth() != laDate.getMonth()
+      ).getMonth() != new Date().getMonth()
     ) {
       attendedStudents.push({
         id: student._id,
@@ -1060,11 +1040,12 @@ exports.adminAttendStudents = catchAsync(async (req, res, next) => {
     }
   });
   const newStudents = attendedStudents;
+  
   if (req.query.adminInputSearch == "") {
     res.redirect(`/admin_attend_students`);
     return;
   }
-
+  
   res.status(200).render("adminTakeAttendance", {
     title: "Take Attendance",
     result,
@@ -1091,8 +1072,8 @@ cron.schedule("40 * * * * *", () => {
   caculateTeacherSalaryAutomatically();
   setTimeout(() => {
     removeUnnessaryPhoto();
-  }, 7000);
+  }, 3000);
   setTimeout(() => {
     secondPartOfAutomateSalaryCalculate();
-  }, 20000);
+  }, 5000);
 });

@@ -192,7 +192,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     teacher.createPasswordResetToken = undefined;
     teacher.passwordResetExpires = undefined;
     await teacher.save({ validateBeforeSave: false });
-    console.log(err);
+    
     return next(
       new AppError("There was an error seding the email. Try again later!", 500)
     );
@@ -259,10 +259,10 @@ exports.addStudents = async (req, res) => {
 
     let { student } = students;
     student = await student.push(req.body);
-    console.log(student);
+    
     students.save();
-    console.log(req.body);
+    
   } catch (err) {
-    console.log(err.message);
+    
   }
 };

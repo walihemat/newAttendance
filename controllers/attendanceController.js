@@ -7,25 +7,8 @@ const Attandance = require(`${__dirname}/../models/attendanceModel`);
 const catchAysnc = require("./../utils/catchAsync");
 const AppError = require("./../utils/appError");
 
-function changeTimeZone(date, timeZone) {
-  if (typeof date === 'string') {
-    return new Date(
-      new Date(date).toLocaleString('en-US', {
-        timeZone,
-      }),
-    );
-  }
 
-  return new Date(
-    date.toLocaleString('en-US', {
-      timeZone,
-    }),
-  );
-}
-
-let laDate = changeTimeZone(new Date(), 'Asia/kabul');
-
-var d = laDate;
+var d = new Date();
   var newMonth = d.getMonth() - 1;
 
   if (newMonth < 0) {
@@ -106,7 +89,11 @@ exports.deleteAttendance = catchAsync(async (req, res, next) => {
 exports.attendStudents = catchAsync(async (req, res, next) => {
   const student = await Attendance.findById(req.params.id);
 
-  const tomoDate = laDate;
+  
+
+  
+
+  const tomoDate = new Date();
 
   const dateFilter = tomoDate.setDate(tomoDate.getDate() - 1);
 
@@ -114,14 +101,14 @@ exports.attendStudents = catchAsync(async (req, res, next) => {
     student.attendance.date.length > 0 &&
     new Date(
       student.attendance.date[student.attendance.date.length - 1]
-    ).getDate() == laDate.getDate() &&
+    ).getDate() == new Date().getDate() &&
     student.attendance.date.length > 0 &&
     new Date(
       student.attendance.date[student.attendance.date.length - 1]
-    ).getMonth() == laDate.getMonth() &&
+    ).getMonth() == new Date().getMonth() &&
     new Date(
       student.attendance.date[student.attendance.date.length - 1]
-    ).getFullYear() == laDate.getFullYear()
+    ).getFullYear() == new Date().getFullYear()
   ) {
     return next(new AppError("The student has already presented", 401));
   }
@@ -136,7 +123,7 @@ exports.attendStudents = catchAsync(async (req, res, next) => {
     attend.push(req.body.attended);
     student.attendance.attended = attend;
 
-    date.push(laDate);
+    date.push(new Date());
     student.attendance.date = date;
   } else {
   }
@@ -144,7 +131,7 @@ exports.attendStudents = catchAsync(async (req, res, next) => {
     student.attendance.attended = req.body.attended;
   }
   if (student.attendance.date.length < 1) {
-    student.attendance.date = laDate;
+    student.attendance.date = new Date();
   }
 
   student.save({ validateBeforeSave: false });
@@ -166,9 +153,9 @@ exports.showTodayPresentUbsentStudents = catchAsync(async (req, res, next) => {
 
     studentDate.filter((d, i) => {
       if (
-        new Date(d).getDate() == laDate.getDate() &&
-        new Date(d).getMonth() == laDate.getMonth() &&
-        new Date(d).getFullYear() == laDate.getFullYear()
+        new Date(d).getDate() == new Date().getDate() &&
+        new Date(d).getMonth() == new Date().getMonth() &&
+        new Date(d).getFullYear() == new Date().getFullYear()
       ) {
         if (
           student.attendance.attended[i] == "present" ||
@@ -215,7 +202,7 @@ const AutoDeleteOutDatedAttendanceRecods = catchAsync(async () => {
     if (student.attendance.date.length > 0) {
       student.attendance.date.forEach((date, i) => {
         if (
-          new Date(date).getMonth() !== laDate.getMonth() &&
+          new Date(date).getMonth() !== new Date().getMonth() &&
           new Date(date).getMonth() !== previusMonth.getMonth()
         ) {
           student.attendance.date.splice(i, 1);
