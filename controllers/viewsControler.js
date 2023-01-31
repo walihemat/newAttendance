@@ -6,6 +6,24 @@ const Student = require("./../models/attendanceModel");
 const catchAsync = require("./../utils/catchAsync");
 const AppErorr = require("./../utils/appError");
 
+function changeTimeZone(date, timeZone) {
+  if (typeof date === 'string') {
+    return new Date(
+      new Date(date).toLocaleString('en-US', {
+        timeZone,
+      }),
+    );
+  }
+
+  return new Date(
+    date.toLocaleString('en-US', {
+      timeZone,
+    }),
+  );
+}
+
+let laDate = changeTimeZone(new Date(), 'Asia/kabul');
+
 exports.getOverview = catchAsync(async (req, res, next) => {
   // 1) get tour data from collection
   const teachers = await Teacher.find({ role: "teacher" });
@@ -171,7 +189,7 @@ exports.getStudent = catchAsync(async (req, res, next) => {
   if (req.url.startsWith("/student_info")) {
     page = "student_info";
   }
-  var d = new Date();
+  var d = laDate = changeTimeZone(new Date(), 'Asia/kabul');;
   var newMonth = d.getMonth() - 1;
 
   if (newMonth < 0) {
@@ -225,25 +243,6 @@ exports.login = (req, res) => {
     message: "successfully logged in",
   });
 };
-
-
-function changeTimeZone(date, timeZone) {
-  if (typeof date === 'string') {
-    return new Date(
-      new Date(date).toLocaleString('en-US', {
-        timeZone,
-      }),
-    );
-  }
-
-  return new Date(
-    date.toLocaleString('en-US', {
-      timeZone,
-    }),
-  );
-}
-
-
 
 exports.getTodayAttendedStudents = catchAsync(async (req, res, next) => {
   let students = await Student.find().populate({
@@ -302,11 +301,8 @@ exports.getTodayAttendedStudents = catchAsync(async (req, res, next) => {
     res.redirect("/admin_dashboard");
     return;
   }
-
-
-  const laDate = changeTimeZone(new Date(), 'Asia/kabul');
   
-  const currentTime= laDate.getHours() + " : " + laDate.getMinutes() + " / " + laDate.toDateString()
+  const currentTime= laDate.getHours() + " : " + laDate.getMinutes() + " / " + laDate.toDateString() + new Date(laDate)
 
   res.status(200).render("admin_dashboard", {
     title: "Attended Students",
