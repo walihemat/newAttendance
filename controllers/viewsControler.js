@@ -474,6 +474,7 @@ exports.getTeacherSalary = catchAsync(async (req, res, next) => {
 exports.getTeacherSalaryPreviousMonth = catchAsync(async (req, res, next) => {
 
   let previusMonth = getPreviousMonth();
+  let previousMonthSalary=[]
 
   const teacher = await Teacher.findById(req.params.id);
 
@@ -501,15 +502,7 @@ exports.getTeacherSalaryPreviousMonth = catchAsync(async (req, res, next) => {
 });
 
 const caculateTeacherSalaryAutomatically = catchAsync(async () => {
-  // var d = new Date();
-  // var newMonth = d.getMonth() - 1;
-
-  // if (newMonth < 0) {
-  //   newMonth += 12;
-  //   d.setYear(d.getFullYear() - 1); // use getFullYear instead of getYear !
-  // }
-  // const previusMonth = new Date(d.setMonth(newMonth));
-
+ 
   let previusMonth = getPreviousMonth();
 
   const teachers = await Teacher.find({ role: "teacher" }).populate({
