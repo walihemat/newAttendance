@@ -19,6 +19,24 @@ const Attendance = require("./models/attendanceModel");
 const Teacher = require("./models/teacherModel");
 const viewRouter = require("./routes/viewRoutes");
 
+function changeTimeZone(date, timeZone) {
+  if (typeof date === 'string') {
+    return new Date(
+      new Date(date).toLocaleString('en-US', {
+        timeZone,
+      }),
+    );
+  }
+
+  return new Date(
+    date.toLocaleString('en-US', {
+      timeZone,
+    }),
+  );
+}
+
+let laDate = changeTimeZone(new Date(), 'Asia/kabul');
+
 // start express app
 const app = express();
 
@@ -94,20 +112,20 @@ const Days = [
   "saturday",
 ];
 
-const tomoDate = new Date();
-const vacations = Days[new Date().getDay()];
+const tomoDate = laDate;
+const vacations = Days[laDate.getDay()];
 const dateFilter = tomoDate.setDate(tomoDate.getDate() - 1);
 
 const tomorrow = tomoDate.setDate(tomoDate.getDate() - 1);
 
-const currentDate = new Date();
+const currentDate = laDate;
 
 const getAttendance = async () => {
   const attendance = await Attendance.find();
   const my = attendance.map((el) => {
     if (el.vacation.includes(vacations)) {
       if (el.attendance.date.length < 1) {
-        el.attendance.date.push(new Date());
+        el.attendance.date.push(laDate);
         el.attendance.attended.push("off day");
         el.save();
       } else if (
@@ -121,7 +139,7 @@ const getAttendance = async () => {
           el.attendance.date[el.attendance.date.length - 1]
         ).getMonth() !== currentDate.getMonth()
       ) {
-        el.attendance.date.push(new Date());
+        el.attendance.date.push(laDate);
         el.attendance.attended.push("off day");
         el.save({ validateBeforeSave: false });
       }
@@ -129,20 +147,20 @@ const getAttendance = async () => {
 
     if (
       new Date(el.attendance.date[el.attendance.date.length - 1]).getDate() !==
-        new Date().getDate() &&
-      new Date().getHours() == 23 &&
-      new Date().getMinutes() > 50
+      laDate.getDate() &&
+      laDate.getHours() == 23 &&
+      laDate.getMinutes() > 50
     ) {
       el.attendance.attended.push("teacher absent");
-      el.attendance.date.push(Date.now());
+      el.attendance.date.push(laDate);
       el.save({ validateBeforeSave: false });
     }
     if (
       el.attendance.date.length < 1 &&
-      new Date().getHours() == 23 &&
-      new Date().getMinutes() > 57
+      laDate.getHours() == 23 &&
+      laDate.getMinutes() > 50
     ) {
-      el.attendance.date.push(Date.now());
+      el.attendance.date.push(laDate);
       el.attendance.attended.push("teacher absent");
       el.save({ validateBeforeSave: false });
     }

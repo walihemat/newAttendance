@@ -24,6 +24,15 @@ function changeTimeZone(date, timeZone) {
 
 let laDate = changeTimeZone(new Date(), 'Asia/kabul');
 
+var d = laDate = changeTimeZone(new Date(), 'Asia/kabul');;
+  var newMonth = d.getMonth() - 1;
+
+  if (newMonth < 0) {
+    newMonth += 12;
+    d.setYear(d.getFullYear() - 1); // use getFullYear instead of getYear !
+  }
+  const previusMonth = new Date(d.setMonth(newMonth));
+
 exports.getOverview = catchAsync(async (req, res, next) => {
   // 1) get tour data from collection
   const teachers = await Teacher.find({ role: "teacher" });
@@ -184,19 +193,13 @@ exports.getStudents = catchAsync(async (req, res, next) => {
   });
 });
 
+
 exports.getStudent = catchAsync(async (req, res, next) => {
   let page = "edit_student";
   if (req.url.startsWith("/student_info")) {
     page = "student_info";
   }
-  var d = laDate = changeTimeZone(new Date(), 'Asia/kabul');;
-  var newMonth = d.getMonth() - 1;
-
-  if (newMonth < 0) {
-    newMonth += 12;
-    d.setYear(d.getFullYear() - 1); // use getFullYear instead of getYear !
-  }
-  const previusMonth = new Date(d.setMonth(newMonth));
+  
 
   const student = await Student.findById(req.params.id);
 
@@ -217,8 +220,8 @@ exports.getStudent = catchAsync(async (req, res, next) => {
       }
 
       if (
-        new Date(date).getMonth() === new Date().getMonth() &&
-        new Date(date).getFullYear() === new Date().getFullYear()
+        new Date(date).getMonth() === laDate.getMonth() &&
+        new Date(date).getFullYear() === laDate.getFullYear()
       ) {
         attendancePreAndCurMonth.push({
           date,
@@ -266,9 +269,9 @@ exports.getTodayAttendedStudents = catchAsync(async (req, res, next) => {
   students.forEach((student) => {
     student.attendance.date.map((attend, i) => {
       if (
-        new Date(attend).getDate() == new Date().getDate() &&
-        new Date(attend).getMonth() == new Date().getMonth() &&
-        new Date(attend).getFullYear() == new Date().getFullYear()
+        new Date(attend).getDate() == laDate.getDate() &&
+        new Date(attend).getMonth() == laDate.getMonth() &&
+        new Date(attend).getFullYear() == laDate.getFullYear()
       ) {
         attendedStudents.push({
           date: attend,
@@ -370,9 +373,9 @@ exports.teacherAttendStudents = catchAsync(async (req, res, next) => {
     );
     student.attendance.date.forEach((attend, i) => {
       if (
-        new Date(attend).getDate() == new Date().getDate() &&
-        new Date(attend).getMonth() == new Date().getMonth() &&
-        new Date(attend).getFullYear() == new Date().getFullYear()
+        new Date(attend).getDate() == laDate.getDate() &&
+        new Date(attend).getMonth() == laDate.getMonth() &&
+        new Date(attend).getFullYear() == laDate.getFullYear()
       ) {
         attendedStudents.push({
           date: attend,
@@ -396,10 +399,10 @@ exports.teacherAttendStudents = catchAsync(async (req, res, next) => {
     if (
       new Date(
         student.attendance.date[student.attendance.date.length - 1]
-      ).getDate() != new Date().getDate() ||
+      ).getDate() != laDate.getDate() ||
       new Date(
         student.attendance.date[student.attendance.date.length - 1]
-      ).getMonth() != new Date().getMonth()
+      ).getMonth() != laDate.getMonth()
     ) {
       attendedStudents.push({
         id: student._id,
@@ -462,8 +465,8 @@ exports.getTeacherSalary = catchAsync(async (req, res, next) => {
 
   teacher.salary.salaryDate.forEach((date, i) => {
     if (
-      new Date(date).getMonth() == new Date().getMonth() &&
-      new Date(date).getFullYear() == new Date().getFullYear()
+      new Date(date).getMonth() == laDate.getMonth() &&
+      new Date(date).getFullYear() == laDate.getFullYear()
     ) {
       currentMonthSalary.push({
         name: teacher.name,
@@ -485,16 +488,16 @@ exports.getTeacherSalary = catchAsync(async (req, res, next) => {
 });
 
 exports.getTeacherSalaryPreviousMonth = catchAsync(async (req, res, next) => {
-  var d = new Date();
-  var newMonth = d.getMonth() - 1;
+  // var d = new Date();
+  // var newMonth = d.getMonth() - 1;
 
-  if (newMonth < 0) {
-    newMonth += 12;
-    d.setYear(d.getFullYear() - 1); // use getFullYear instead of getYear !
-  }
-  const previusMonth = new Date(d.setMonth(newMonth));
+  // if (newMonth < 0) {
+  //   newMonth += 12;
+  //   d.setYear(d.getFullYear() - 1); // use getFullYear instead of getYear !
+  // }
+  // const previusMonth = new Date(d.setMonth(newMonth));
 
-  const previousMonthSalary = [];
+  // const previousMonthSalary = [];
 
   const teacher = await Teacher.findById(req.params.id);
 
@@ -522,14 +525,14 @@ exports.getTeacherSalaryPreviousMonth = catchAsync(async (req, res, next) => {
 });
 
 const caculateTeacherSalaryAutomatically = catchAsync(async () => {
-  var d = new Date();
-  var newMonth = d.getMonth() - 1;
+  // var d = new Date();
+  // var newMonth = d.getMonth() - 1;
 
-  if (newMonth < 0) {
-    newMonth += 12;
-    d.setYear(d.getFullYear() - 1); // use getFullYear instead of getYear !
-  }
-  const previusMonth = new Date(d.setMonth(newMonth));
+  // if (newMonth < 0) {
+  //   newMonth += 12;
+  //   d.setYear(d.getFullYear() - 1); // use getFullYear instead of getYear !
+  // }
+  // const previusMonth = new Date(d.setMonth(newMonth));
 
   const teachers = await Teacher.find({ role: "teacher" }).populate({
     path: "students",
@@ -544,8 +547,8 @@ const caculateTeacherSalaryAutomatically = catchAsync(async () => {
         let absentCount = 1;
         student.attendance.date.forEach((date, i) => {
           if (
-            new Date(date).getFullYear() === new Date().getFullYear() &&
-            new Date(date).getMonth() === new Date().getMonth()
+            new Date(date).getFullYear() === laDate.getFullYear() &&
+            new Date(date).getMonth() === laDate.getMonth()
           ) {
             if (
               student.attendance.attended[i] === "present" ||
@@ -572,8 +575,8 @@ const caculateTeacherSalaryAutomatically = catchAsync(async () => {
     teacher.studentsAttendanceTotal.forEach((stAtTo, i) => {
       if (
         !teacherStudentsIds.includes(stAtTo.id.toString()) &&
-        new Date(stAtTo.date).getMonth() === new Date().getMonth() &&
-        new Date(stAtTo.date).getFullYear() === new Date().getFullYear()
+        new Date(stAtTo.date).getMonth() === laDate.getMonth() &&
+        new Date(stAtTo.date).getFullYear() === laDate.getFullYear()
       ) {
         teacherSalary.push(stAtTo);
       }
@@ -585,7 +588,7 @@ const caculateTeacherSalaryAutomatically = catchAsync(async () => {
         teacherSalary.push(stAtTo);
       }
       if (
-        new Date(stAtTo.date).getMonth() !== new Date().getMonth() &&
+        new Date(stAtTo.date).getMonth() !== laDate.getMonth() &&
         new Date(stAtTo.date).getMonth() !== previusMonth.getMonth()
       ) {
         teacher.studentsAttendanceTotal.splice(i, 1);
@@ -598,7 +601,7 @@ const caculateTeacherSalaryAutomatically = catchAsync(async () => {
         id: sstudent._id,
         present: sstudent.present,
         absent: sstudent.absent,
-        date: new Date(),
+        date: laDate,
       });
     });
     teacher.studentsAttendanceTotal = teacherSalary;
@@ -609,14 +612,14 @@ const caculateTeacherSalaryAutomatically = catchAsync(async () => {
 // caculateTeacherSalaryAutomatically();
 
 const secondPartOfAutomateSalaryCalculate = async () => {
-  var d = new Date();
-  var newMonth = d.getMonth() - 1;
+  // var d = new Date();
+  // var newMonth = d.getMonth() - 1;
 
-  if (newMonth < 0) {
-    newMonth += 12;
-    d.setYear(d.getFullYear() - 1); // use getFullYear instead of getYear !
-  }
-  const previusMonth = new Date(d.setMonth(newMonth));
+  // if (newMonth < 0) {
+  //   newMonth += 12;
+  //   d.setYear(d.getFullYear() - 1); // use getFullYear instead of getYear !
+  // }
+  // const previusMonth = new Date(d.setMonth(newMonth));
 
   const teachers = await Teacher.find({ role: "teacher" });
 
@@ -629,8 +632,8 @@ const secondPartOfAutomateSalaryCalculate = async () => {
     const totalPresent = [];
     teacher.studentsAttendanceTotal.forEach((salaryStudent) => {
       if (
-        new Date(salaryStudent.date).getMonth() == new Date().getMonth() &&
-        new Date(salaryStudent.date).getFullYear() == new Date().getFullYear()
+        new Date(salaryStudent.date).getMonth() == laDate.getMonth() &&
+        new Date(salaryStudent.date).getFullYear() == laDate.getFullYear()
       ) {
         totalPresent.push(salaryStudent.present);
       }
@@ -663,14 +666,14 @@ const secondPartOfAutomateSalaryCalculate = async () => {
       if (
         new Date(
           teacher.salary.salaryDate[teacher.salary.salaryDate.length - 1]
-        ).getMonth() === new Date().getMonth() &&
+        ).getMonth() === laDate.getMonth() &&
         new Date(
           teacher.salary.salaryDate[teacher.salary.salaryDate.length - 1]
-        ).getFullYear() === new Date().getFullYear()
+        ).getFullYear() === laDate.getFullYear()
       ) {
         salaryAmount[salaryAmount.length - 1] = totalSalary * 100;
 
-        salaryDate[salaryDate.length - 1] = new Date();
+        salaryDate[salaryDate.length - 1] = laDate;
         if (totalSalary.length > 0) {
           allPresent[allPresent.length - 1] = totalSalary[0];
         }
@@ -684,7 +687,7 @@ const secondPartOfAutomateSalaryCalculate = async () => {
         }
       } else {
         salaryAmount.push(totalSalary * 100);
-        salaryDate.push(new Date());
+        salaryDate.push(laDate);
         if (totalSalary.length > 0) {
           allPresent.push(totalSalary[0]);
         } else {
@@ -699,7 +702,7 @@ const secondPartOfAutomateSalaryCalculate = async () => {
     }
     if (teacher.salary.salaryDate.length == 0) {
       salaryAmount.push(totalSalary[0] * 100);
-      salaryDate.push(new Date());
+      salaryDate.push(laDate);
       if (totalSalary.length > 0) {
         allPresent.push(totalSalary[0]);
       } else {
@@ -715,7 +718,7 @@ const secondPartOfAutomateSalaryCalculate = async () => {
     if (teacher.salary.salaryDate.length > 0) {
       teacher.salary.salaryDate.forEach((slDate, I) => {
         if (
-          new Date(slDate).getMonth() !== new Date().getMonth() &&
+          new Date(slDate).getMonth() !== laDate.getMonth() &&
           new Date(slDate).getMonth() !== previusMonth.getMonth()
         ) {
           salaryDate.splice(I, 1);
@@ -745,14 +748,14 @@ exports.allTeacherSalary = catchAsync(async (req, res, next) => {
 });
 
 exports.previusMonthSalary = catchAsync(async (req, res, next) => {
-  var d = new Date();
-  var newMonth = d.getMonth() - 1;
+  // var d = new Date();
+  // var newMonth = d.getMonth() - 1;
 
-  if (newMonth < 0) {
-    newMonth += 12;
-    d.setYear(d.getFullYear() - 1); // use getFullYear instead of getYear !
-  }
-  const previusMonth = new Date(d.setMonth(newMonth));
+  // if (newMonth < 0) {
+  //   newMonth += 12;
+  //   d.setYear(d.getFullYear() - 1); // use getFullYear instead of getYear !
+  // }
+  // const previusMonth = new Date(d.setMonth(newMonth));
 
   const teachers = await Teacher.find({ role: "teacher" }).populate("students");
 
@@ -832,8 +835,8 @@ exports.currentMonthCompleteAttendance = catchAsync(async (req, res, nest) => {
 
     student.attendance.date.forEach((date, i) => {
       if (
-        new Date(date).getMonth() == new Date().getMonth() &&
-        new Date(date).getFullYear() == new Date().getFullYear()
+        new Date(date).getMonth() == laDate.getMonth() &&
+        new Date(date).getFullYear() == laDate.getFullYear()
       ) {
         if (student.teacher.length > 0) {
           currentMonthAttendedStudents.push({
@@ -874,14 +877,14 @@ exports.previousMonthCompleteAttendance = catchAsync(async (req, res, next) => {
   if (req.url.startsWith("/student_info")) {
     page = "student_info";
   }
-  var d = new Date();
-  var newMonth = d.getMonth() - 1;
+  // var d = new Date();
+  // var newMonth = d.getMonth() - 1;
 
-  if (newMonth < 0) {
-    newMonth += 12;
-    d.setYear(d.getFullYear() - 1); // use getFullYear instead of getYear !
-  }
-  const previusMonth = new Date(d.setMonth(newMonth));
+  // if (newMonth < 0) {
+  //   newMonth += 12;
+  //   d.setYear(d.getFullYear() - 1); // use getFullYear instead of getYear !
+  // }
+  // const previusMonth = new Date(d.setMonth(newMonth));
 
   const students = await Student.find();
   let previousMonthAttendedStudents = [];
@@ -1011,9 +1014,9 @@ exports.adminAttendStudents = catchAsync(async (req, res, next) => {
     );
     student.attendance.date.forEach((attend, i) => {
       if (
-        new Date(attend).getDate() == new Date().getDate() &&
-        new Date(attend).getMonth() == new Date().getMonth() &&
-        new Date(attend).getFullYear() == new Date().getFullYear()
+        new Date(attend).getDate() == laDate.getDate() &&
+        new Date(attend).getMonth() == laDate.getMonth() &&
+        new Date(attend).getFullYear() == laDate.getFullYear()
       ) {
         attendedStudents.push({
           date: attend,
@@ -1036,10 +1039,10 @@ exports.adminAttendStudents = catchAsync(async (req, res, next) => {
     if (
       new Date(
         student.attendance.date[student.attendance.date.length - 1]
-      ).getDate() != new Date().getDate() ||
+      ).getDate() != laDate.getDate() ||
       new Date(
         student.attendance.date[student.attendance.date.length - 1]
-      ).getMonth() != new Date().getMonth()
+      ).getMonth() != laDate.getMonth()
     ) {
       attendedStudents.push({
         id: student._id,
