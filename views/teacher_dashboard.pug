@@ -10,7 +10,7 @@ block content
           .input-group.d-flex.justify-content-center.align-items-center
             input.form-control(type='text' name='inputSearch' placeholder='Search Student' aria-describedby='after' value=`${inputSearch}`)
             button.btn.btn-primary#after(type='submit') Search
-    .row.align-items-center.teacher-container-row.mx-3.mx-md-0
+    .row.teacher-container-row.mx-3.mx-md-0
       .col-12.card-section.py-3
         .row.justify-content-center.align-items-center.g-2
           if !result
@@ -26,9 +26,9 @@ block content
                   - bgColor ='btn-danger'
                 if student.attended==='student absent'
                   - bgColor ='btn-warning'
-                
+
               .col-sm-6.col-md-4.col-lg-3.xl-2.xxl-1.teacher-card.text-center
-                .card.pb-3
+                .card.pb-3.h-100
                   .card-body
                     img(src=`/images/students/${student.gender}.png` alt=`${student.gender}` width='75')
                     .card-title= student.name 
@@ -44,23 +44,23 @@ block content
                       each day in student.vacation
                         span.text-secondary= day.substring(0,1).toUpperCase() + day.substring(1,3) 
                           |, 
-                    .mt-2.d-flex.justify-content-around.align-items-center
-                      if student.attended==='off day'
-                        h6.text-white.bg-primary.py-2.px-3 Off Day
-                      else
-                        if cdate
-                          if student.attended==='present'
-                            button.btn.rounded-circle.btn-success.presentBtn(title='present حاضر' value=`${student.id}` ) P
+                  .mt-2.d-flex.justify-content-around.align-items-end
+                    if student.attended==='off day'
+                      h6.text-white.bg-primary.py-2.px-3 Off Day
+                    else
+                      if cdate
+                        if student.attended==='present'
+                          button.btn.rounded-circle.btn-success.presentBtn(title='present حاضر' value=`${student.id}` ) P
 
-                          if student.attended==='student absent'
-                            button.btn.rounded-circle.btn-warning.studentAbsentBtn(title='student absent شاګرد غیرحاضر' value=`${student.id}`) A
-                          if student.attended==='teacher absent'
-                            button.btn.rounded-circle.btn-danger.teacherAbsentBtn(title='Teacher absent استاد غیر حاضر' value=`${student.id}` ) T.A
-                        else
-                          button.btn.rounded-circle.btn-secondary.presentBtn(title='present حاضر' value=`${student.id}` type='button' ) P
-                          button.btn.rounded-circle.btn-secondary.studentAbsentBtn(title='student absent شاګرد غیرحاضر' value=`${student.id}`) A
-                          button.btn.rounded-circle.btn-secondary.teacherAbsentBtn(title='Teacher absent استاد غیر حاضر' value=`${student.id}` ) T.A
+                        if student.attended==='student absent'
+                          button.btn.rounded-circle.btn-warning.studentAbsentBtn(title='student absent شاګرد غیرحاضر' value=`${student.id}`) A
+                        if student.attended==='teacher absent'
+                          button.btn.rounded-circle.btn-danger.teacherAbsentBtn(title='Teacher absent استاد غیر حاضر' value=`${student.id}` ) T.A
+                      else
+                        button.btn.rounded-circle.btn-secondary.presentBtn(title='present حاضر' value=`${student.id}` type='button' ) P
+                        button.btn.rounded-circle.btn-secondary.studentAbsentBtn(title='student absent شاګرد غیرحاضر' value=`${student.id}`) A
+                        button.btn.rounded-circle.btn-secondary.teacherAbsentBtn(title='Teacher absent استاد غیر حاضر' value=`${student.id}` ) T.A
           if result
             h6.text-dander.text-center= result
-                      
-                      
+
+
