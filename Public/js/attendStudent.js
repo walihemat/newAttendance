@@ -11,7 +11,7 @@ export const attendStudent = async (id, attended) => {
       },
     });
     if (res.data.status === "success") {
-      showAlert("success", `Successfully added: ${attended}`);
+      showAlert("success", `Student successfully attended`);
       window.setTimeout(() => {
         location.reload(true);
       }, 1000);
