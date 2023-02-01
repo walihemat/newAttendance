@@ -157,9 +157,13 @@ const getAttendance = async () => {
   });
 };
 
-cron.schedule("30 * * * * *", () => {
+cron.schedule("*/10 * * * * *", () => {
   getAttendance();
 });
+
+
+app.post('/test1',attendanceController.test1 )
+app.post("/test2", attendanceController.test2);
 
 // Routes
 app.use("/", viewRouter);

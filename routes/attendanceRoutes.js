@@ -63,7 +63,4 @@ router.post(
   attendanceController.attendStudents
 );
 
-router.post("/autmaticallyAtten", attendanceController.attendAutomaticallyStudents);
-router.post("/teacheratuomaticallySecondPart", attendanceController.salarySecondPartAuto);
-
 module.exports = router;

@@ -300,7 +300,7 @@ exports.attendAutomaticallyStudents = catchAsync(async(req,res,next)=>{
 
     ////
   
-
+    console.log("yes I am first")
 
     ////
 
@@ -310,131 +310,25 @@ exports.attendAutomaticallyStudents = catchAsync(async(req,res,next)=>{
 })
 
 
-exports.salarySecondPartAuto = catchAsync(async(req,res,next)=>{
+exports.test1 = catchAsync(async(req,res,next)=>{
 
-    let previusMonth = getPreviousMonth();
-  
-    const teachers = await Teacher.find({ role: "teacher" });
-  
-    teachers.forEach(async (teacher) => {
-      const [...salaryDate] = teacher.salary.salaryDate;
-      const [...salaryAmount] = teacher.salary.salaryAmount;
-      const [...allPresent] = teacher.salary.totalPresent;
-      const [...totalClasses] = teacher.salary.totalClasses;
-  
-      const totalPresent = [];
-      teacher.studentsAttendanceTotal.forEach((salaryStudent) => {
-        if (
-          new Date(salaryStudent.date).getMonth() == new Date().getMonth() &&
-          new Date(salaryStudent.date).getFullYear() == new Date().getFullYear()
-        ) {
-          totalPresent.push(salaryStudent.present);
-        }
-      });
-  
-      // const teacherTotalClasseNumbers = [];
-      // teacher.studentsAttendanceTotal.forEach((totalClassStudent) => {
-      //   if (
-      //     new Date(totalClassStudent.date).getMonth() == new Date().getMonth() &&
-      //     new Date(totalClassStudent.date).getFullYear() ==
-      //       new Date().getFullYear()
-      //   ) {
-      //     teacherTotalClasseNumbers.push(totalClassStudent);
-      //   }
-      // });
-  
-      let totalSalary = [];
-  
-      if (totalPresent.length > 1) {
-        const sumOftotalPresent = totalPresent.reduce((acc, p) => {
-          return acc + p;
-        });
-        totalSalary.push(sumOftotalPresent);
-      }
-      if (totalPresent.length == 1) {
-        totalSalary.push(totalPresent[0]);
-      }
-  
-      if (teacher.salary.salaryDate.length > 0) {
-        if (
-          new Date(
-            teacher.salary.salaryDate[teacher.salary.salaryDate.length - 1]
-          ).getMonth() === new Date().getMonth() &&
-          new Date(
-            teacher.salary.salaryDate[teacher.salary.salaryDate.length - 1]
-          ).getFullYear() === new Date().getFullYear()
-        ) {
-          salaryAmount[salaryAmount.length - 1] = totalSalary * 100;
-  
-          salaryDate[salaryDate.length - 1] = new Date();
-          if (totalSalary.length > 0) {
-            allPresent[allPresent.length - 1] = totalSalary[0];
-          }
-          if (totalSalary.length == 0) {
-            allPresent[allPresent.length - 1] = 0;
-          }
-          if (totalPresent.length > 0) {
-            totalClasses[totalClasses.length - 1] = totalPresent.length;
-          } else {
-            totalClasses[totalClasses.length - 1] = 0;
-          }
-        } else {
-          salaryAmount.push(totalSalary * 100);
-          salaryDate.push(new Date());
-          if (totalSalary.length > 0) {
-            allPresent.push(totalSalary[0]);
-          } else {
-            allPresent.push(0);
-          }
-          if (totalPresent.length > 0) {
-            totalClasses.push(totalPresent.length);
-          } else {
-            totalClasses.push(0);
-          }
-        }
-      }
-      if (teacher.salary.salaryDate.length == 0) {
-        salaryAmount.push(totalSalary[0] * 100);
-        salaryDate.push(new Date());
-        if (totalSalary.length > 0) {
-          allPresent.push(totalSalary[0]);
-        } else {
-          allPresent.push(0);
-        }
-        if (totalPresent.length > 0) {
-          totalClasses.push(totalPresent.length);
-        } else {
-          totalClasses.push(0);
-        }
-      }
-  
-      if (teacher.salary.salaryDate.length > 0) {
-        teacher.salary.salaryDate.forEach((slDate, I) => {
-          if (
-            new Date(slDate).getMonth() !== new Date().getMonth() &&
-            new Date(slDate).getMonth() !== previusMonth.getMonth()
-          ) {
-            salaryDate.splice(I, 1);
-            salaryAmount.splice(I, 1);
-            allPresent.splice(I, 1);
-            totalClasses.splice(I, 1);
-          }
-        });
-      }
-  
-      (teacher.salary.totalClasses = totalClasses),
-        (teacher.salary.salaryAmount = salaryAmount);
-      teacher.salary.salaryDate = salaryDate;
-      teacher.salary.totalPresent = allPresent;
-  
-      teacher.save({ validateBeforeSave: false });
-    });
+    console.log("yes I am test1")
 
     res.status(200).json({
       status:'success'
     })
 })
 
-cron.schedule("15 * * * * *", () => {
+exports.test2 = catchAsync(async(req,res,next)=>{
+
+  console.log("yes I am test2")
+
+  res.status(200).json({
+    status:'success'
+  })
+})
+
+
+cron.schedule("15/* * * * * *", () => {
   AutoDeleteOutDatedAttendanceRecods();
 });
