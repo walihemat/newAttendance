@@ -505,207 +505,207 @@ exports.getTeacherSalaryPreviousMonth = catchAsync(async (req, res, next) => {
   });
 });
 
-const caculateTeacherSalaryAutomatically = catchAsync(async () => {
+// const caculateTeacherSalaryAutomatically = catchAsync(async () => {
  
-  let previusMonth = getPreviousMonth();
+//   let previusMonth = getPreviousMonth();
 
-  const teachers = await Teacher.find({ role: "teacher" }).populate({
-    path: "students",
-  });
+//   const teachers = await Teacher.find({ role: "teacher" }).populate({
+//     path: "students",
+//   });
 
-  teachers.forEach((teacher) => {
-    if (teacher.students.length > 0) {
-      teacher.students.forEach((student) => {
-        student["present"] = 0;
-        student["absent"] = 0;
-        let presentCount = 1;
-        let absentCount = 1;
-        student.attendance.date.forEach((date, i) => {
-          if (
-            new Date(date).getFullYear() === new Date().getFullYear() &&
-            new Date(date).getMonth() === new Date().getMonth()
-          ) {
-            if (
-              student.attendance.attended[i] === "present" ||
-              student.attendance.attended[i] === "student absent"
-            ) {
-              student.present = presentCount;
-              presentCount++;
-            }
-            if (student.attendance.attended[i] === "teacher absent") {
-              student.absent = absentCount;
-              absentCount++;
-            }
-          }
-        });
-      });
-    }
-  });
+//   teachers.forEach((teacher) => {
+//     if (teacher.students.length > 0) {
+//       teacher.students.forEach((student) => {
+//         student["present"] = 0;
+//         student["absent"] = 0;
+//         let presentCount = 1;
+//         let absentCount = 1;
+//         student.attendance.date.forEach((date, i) => {
+//           if (
+//             new Date(date).getFullYear() === new Date().getFullYear() &&
+//             new Date(date).getMonth() === new Date().getMonth()
+//           ) {
+//             if (
+//               student.attendance.attended[i] === "present" ||
+//               student.attendance.attended[i] === "student absent"
+//             ) {
+//               student.present = presentCount;
+//               presentCount++;
+//             }
+//             if (student.attendance.attended[i] === "teacher absent") {
+//               student.absent = absentCount;
+//               absentCount++;
+//             }
+//           }
+//         });
+//       });
+//     }
+//   });
 
-  teachers.forEach((teacher) => {
-    let teacherSalary = [];
-    const teacherStudentsIds = teacher.students.map((tchStudent) =>
-      tchStudent._id.toString()
-    );
-    teacher.studentsAttendanceTotal.forEach((stAtTo, i) => {
-      if (
-        !teacherStudentsIds.includes(stAtTo.id.toString()) &&
-        new Date(stAtTo.date).getMonth() === new Date().getMonth() &&
-        new Date(stAtTo.date).getFullYear() === new Date().getFullYear()
-      ) {
-        teacherSalary.push(stAtTo);
-      }
-      if (
-        !teacherStudentsIds.includes(stAtTo.id.toString()) &&
-        new Date(stAtTo.date).getMonth() == previusMonth.getMonth() &&
-        new Date(stAtTo.date).getFullYear() == previusMonth.getFullYear()
-      ) {
-        teacherSalary.push(stAtTo);
-      }
-      if (
-        new Date(stAtTo.date).getMonth() !== new Date().getMonth() &&
-        new Date(stAtTo.date).getMonth() !== previusMonth.getMonth()
-      ) {
-        teacher.studentsAttendanceTotal.splice(i, 1);
-      }
-    });
+//   teachers.forEach((teacher) => {
+//     let teacherSalary = [];
+//     const teacherStudentsIds = teacher.students.map((tchStudent) =>
+//       tchStudent._id.toString()
+//     );
+//     teacher.studentsAttendanceTotal.forEach((stAtTo, i) => {
+//       if (
+//         !teacherStudentsIds.includes(stAtTo.id.toString()) &&
+//         new Date(stAtTo.date).getMonth() === new Date().getMonth() &&
+//         new Date(stAtTo.date).getFullYear() === new Date().getFullYear()
+//       ) {
+//         teacherSalary.push(stAtTo);
+//       }
+//       if (
+//         !teacherStudentsIds.includes(stAtTo.id.toString()) &&
+//         new Date(stAtTo.date).getMonth() == previusMonth.getMonth() &&
+//         new Date(stAtTo.date).getFullYear() == previusMonth.getFullYear()
+//       ) {
+//         teacherSalary.push(stAtTo);
+//       }
+//       if (
+//         new Date(stAtTo.date).getMonth() !== new Date().getMonth() &&
+//         new Date(stAtTo.date).getMonth() !== previusMonth.getMonth()
+//       ) {
+//         teacher.studentsAttendanceTotal.splice(i, 1);
+//       }
+//     });
 
-    teacher.students.forEach((sstudent) => {
-      teacherSalary.push({
-        name: sstudent.name,
-        id: sstudent._id,
-        present: sstudent.present,
-        absent: sstudent.absent,
-        date: new Date(),
-      });
-    });
-    teacher.studentsAttendanceTotal = teacherSalary;
-    teacher.save({ validateBeforeSave: false });
-  });
-});
+//     teacher.students.forEach((sstudent) => {
+//       teacherSalary.push({
+//         name: sstudent.name,
+//         id: sstudent._id,
+//         present: sstudent.present,
+//         absent: sstudent.absent,
+//         date: new Date(),
+//       });
+//     });
+//     teacher.studentsAttendanceTotal = teacherSalary;
+//     teacher.save({ validateBeforeSave: false });
+//   });
+// });
 
 // caculateTeacherSalaryAutomatically();
 
-const secondPartOfAutomateSalaryCalculate = async () => {
+// const secondPartOfAutomateSalaryCalculate = async () => {
 
-  let previusMonth = getPreviousMonth();
+//   let previusMonth = getPreviousMonth();
 
-  const teachers = await Teacher.find({ role: "teacher" });
+//   const teachers = await Teacher.find({ role: "teacher" });
 
-  teachers.forEach(async (teacher) => {
-    const [...salaryDate] = teacher.salary.salaryDate;
-    const [...salaryAmount] = teacher.salary.salaryAmount;
-    const [...allPresent] = teacher.salary.totalPresent;
-    const [...totalClasses] = teacher.salary.totalClasses;
+//   teachers.forEach(async (teacher) => {
+//     const [...salaryDate] = teacher.salary.salaryDate;
+//     const [...salaryAmount] = teacher.salary.salaryAmount;
+//     const [...allPresent] = teacher.salary.totalPresent;
+//     const [...totalClasses] = teacher.salary.totalClasses;
 
-    const totalPresent = [];
-    teacher.studentsAttendanceTotal.forEach((salaryStudent) => {
-      if (
-        new Date(salaryStudent.date).getMonth() == new Date().getMonth() &&
-        new Date(salaryStudent.date).getFullYear() == new Date().getFullYear()
-      ) {
-        totalPresent.push(salaryStudent.present);
-      }
-    });
+//     const totalPresent = [];
+//     teacher.studentsAttendanceTotal.forEach((salaryStudent) => {
+//       if (
+//         new Date(salaryStudent.date).getMonth() == new Date().getMonth() &&
+//         new Date(salaryStudent.date).getFullYear() == new Date().getFullYear()
+//       ) {
+//         totalPresent.push(salaryStudent.present);
+//       }
+//     });
 
-    // const teacherTotalClasseNumbers = [];
-    // teacher.studentsAttendanceTotal.forEach((totalClassStudent) => {
-    //   if (
-    //     new Date(totalClassStudent.date).getMonth() == new Date().getMonth() &&
-    //     new Date(totalClassStudent.date).getFullYear() ==
-    //       new Date().getFullYear()
-    //   ) {
-    //     teacherTotalClasseNumbers.push(totalClassStudent);
-    //   }
-    // });
+//     // const teacherTotalClasseNumbers = [];
+//     // teacher.studentsAttendanceTotal.forEach((totalClassStudent) => {
+//     //   if (
+//     //     new Date(totalClassStudent.date).getMonth() == new Date().getMonth() &&
+//     //     new Date(totalClassStudent.date).getFullYear() ==
+//     //       new Date().getFullYear()
+//     //   ) {
+//     //     teacherTotalClasseNumbers.push(totalClassStudent);
+//     //   }
+//     // });
 
-    let totalSalary = [];
+//     let totalSalary = [];
 
-    if (totalPresent.length > 1) {
-      const sumOftotalPresent = totalPresent.reduce((acc, p) => {
-        return acc + p;
-      });
-      totalSalary.push(sumOftotalPresent);
-    }
-    if (totalPresent.length == 1) {
-      totalSalary.push(totalPresent[0]);
-    }
+//     if (totalPresent.length > 1) {
+//       const sumOftotalPresent = totalPresent.reduce((acc, p) => {
+//         return acc + p;
+//       });
+//       totalSalary.push(sumOftotalPresent);
+//     }
+//     if (totalPresent.length == 1) {
+//       totalSalary.push(totalPresent[0]);
+//     }
 
-    if (teacher.salary.salaryDate.length > 0) {
-      if (
-        new Date(
-          teacher.salary.salaryDate[teacher.salary.salaryDate.length - 1]
-        ).getMonth() === new Date().getMonth() &&
-        new Date(
-          teacher.salary.salaryDate[teacher.salary.salaryDate.length - 1]
-        ).getFullYear() === new Date().getFullYear()
-      ) {
-        salaryAmount[salaryAmount.length - 1] = totalSalary * 100;
+//     if (teacher.salary.salaryDate.length > 0) {
+//       if (
+//         new Date(
+//           teacher.salary.salaryDate[teacher.salary.salaryDate.length - 1]
+//         ).getMonth() === new Date().getMonth() &&
+//         new Date(
+//           teacher.salary.salaryDate[teacher.salary.salaryDate.length - 1]
+//         ).getFullYear() === new Date().getFullYear()
+//       ) {
+//         salaryAmount[salaryAmount.length - 1] = totalSalary * 100;
 
-        salaryDate[salaryDate.length - 1] = new Date();
-        if (totalSalary.length > 0) {
-          allPresent[allPresent.length - 1] = totalSalary[0];
-        }
-        if (totalSalary.length == 0) {
-          allPresent[allPresent.length - 1] = 0;
-        }
-        if (totalPresent.length > 0) {
-          totalClasses[totalClasses.length - 1] = totalPresent.length;
-        } else {
-          totalClasses[totalClasses.length - 1] = 0;
-        }
-      } else {
-        salaryAmount.push(totalSalary * 100);
-        salaryDate.push(new Date());
-        if (totalSalary.length > 0) {
-          allPresent.push(totalSalary[0]);
-        } else {
-          allPresent.push(0);
-        }
-        if (totalPresent.length > 0) {
-          totalClasses.push(totalPresent.length);
-        } else {
-          totalClasses.push(0);
-        }
-      }
-    }
-    if (teacher.salary.salaryDate.length == 0) {
-      salaryAmount.push(totalSalary[0] * 100);
-      salaryDate.push(new Date());
-      if (totalSalary.length > 0) {
-        allPresent.push(totalSalary[0]);
-      } else {
-        allPresent.push(0);
-      }
-      if (totalPresent.length > 0) {
-        totalClasses.push(totalPresent.length);
-      } else {
-        totalClasses.push(0);
-      }
-    }
+//         salaryDate[salaryDate.length - 1] = new Date();
+//         if (totalSalary.length > 0) {
+//           allPresent[allPresent.length - 1] = totalSalary[0];
+//         }
+//         if (totalSalary.length == 0) {
+//           allPresent[allPresent.length - 1] = 0;
+//         }
+//         if (totalPresent.length > 0) {
+//           totalClasses[totalClasses.length - 1] = totalPresent.length;
+//         } else {
+//           totalClasses[totalClasses.length - 1] = 0;
+//         }
+//       } else {
+//         salaryAmount.push(totalSalary * 100);
+//         salaryDate.push(new Date());
+//         if (totalSalary.length > 0) {
+//           allPresent.push(totalSalary[0]);
+//         } else {
+//           allPresent.push(0);
+//         }
+//         if (totalPresent.length > 0) {
+//           totalClasses.push(totalPresent.length);
+//         } else {
+//           totalClasses.push(0);
+//         }
+//       }
+//     }
+//     if (teacher.salary.salaryDate.length == 0) {
+//       salaryAmount.push(totalSalary[0] * 100);
+//       salaryDate.push(new Date());
+//       if (totalSalary.length > 0) {
+//         allPresent.push(totalSalary[0]);
+//       } else {
+//         allPresent.push(0);
+//       }
+//       if (totalPresent.length > 0) {
+//         totalClasses.push(totalPresent.length);
+//       } else {
+//         totalClasses.push(0);
+//       }
+//     }
 
-    if (teacher.salary.salaryDate.length > 0) {
-      teacher.salary.salaryDate.forEach((slDate, I) => {
-        if (
-          new Date(slDate).getMonth() !== new Date().getMonth() &&
-          new Date(slDate).getMonth() !== previusMonth.getMonth()
-        ) {
-          salaryDate.splice(I, 1);
-          salaryAmount.splice(I, 1);
-          allPresent.splice(I, 1);
-          totalClasses.splice(I, 1);
-        }
-      });
-    }
+//     if (teacher.salary.salaryDate.length > 0) {
+//       teacher.salary.salaryDate.forEach((slDate, I) => {
+//         if (
+//           new Date(slDate).getMonth() !== new Date().getMonth() &&
+//           new Date(slDate).getMonth() !== previusMonth.getMonth()
+//         ) {
+//           salaryDate.splice(I, 1);
+//           salaryAmount.splice(I, 1);
+//           allPresent.splice(I, 1);
+//           totalClasses.splice(I, 1);
+//         }
+//       });
+//     }
 
-    (teacher.salary.totalClasses = totalClasses),
-      (teacher.salary.salaryAmount = salaryAmount);
-    teacher.salary.salaryDate = salaryDate;
-    teacher.salary.totalPresent = allPresent;
+//     (teacher.salary.totalClasses = totalClasses),
+//       (teacher.salary.salaryAmount = salaryAmount);
+//     teacher.salary.salaryDate = salaryDate;
+//     teacher.salary.totalPresent = allPresent;
 
-    teacher.save({ validateBeforeSave: false });
-  });
-};
+//     teacher.save({ validateBeforeSave: false });
+//   });
+// };
 
 exports.allTeacherSalary = catchAsync(async (req, res, next) => {
   const teachers = await Teacher.find({ role: "teacher" });
@@ -1053,14 +1053,22 @@ const removeUnnessaryPhoto = catchAsync(async () => {
   });
 });
 
-cron.schedule("*/15 * * * * *", () => {
+// cron.schedule("*/15 * * * * *", () => {
+//   caculateTeacherSalaryAutomatically();
+//   setTimeout(() => {
+//     removeUnnessaryPhoto();
+//     console.log('ruuning 7000')
+//   }, 2000);
+//   setTimeout(() => {
+//     secondPartOfAutomateSalaryCalculate();
+//     console.log('ruuning: 20000')
+//   }, 5000);
+// });
+
+cron.schedule("15 1 * * * *", () => {
   caculateTeacherSalaryAutomatically();
   setTimeout(() => {
     removeUnnessaryPhoto();
     console.log('ruuning 7000')
   }, 2000);
-  setTimeout(() => {
-    secondPartOfAutomateSalaryCalculate();
-    console.log('ruuning: 20000')
-  }, 5000);
 });
