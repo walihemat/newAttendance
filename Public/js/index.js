@@ -397,15 +397,15 @@ const display12HoursTime = (hour, minute, seconds) => {
     h = 12;
   }
   return h < 10
-    ? "0" + h + " : " + minute + " : " + seconds + " " + dd + "  " + new Date().toLocaleDateString()
-    : h + " : " + minute + " : " + seconds + " " + dd+ "  " + new Date().toLocaleDateString()
+    ? "0" + h + " : " + minute + " : " + seconds + " " + dd + " :: " + new Date().getUTCMonth() + " / " +  new Date().getUTCDate() + " / " + new Date().getUTCFullYear()
+    : h + " : " + minute + " : " + seconds + " " + dd+ " :: " + new Date().getUTCMonth() + " / " +  new Date().getUTCDate() + " / " + new Date().getUTCFullYear()
 };
 
 const digitalClock = ()=> {
   const d = new Date();
-  const hour = d.getHours();
-  const minute = d.getMinutes();
-  const seconds = d.getSeconds();
+  const hour = d.getUTCHours();
+  const minute = d.getUTCMinutes();
+  const seconds = d.getUTCSeconds();
   return display12HoursTime(hour, minute, seconds);
 }
 

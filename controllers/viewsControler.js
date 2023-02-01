@@ -489,7 +489,6 @@ exports.getTeacherSalaryPreviousMonth = catchAsync(async (req, res, next) => {
       new Date(date).getMonth() == previusMonth.getMonth() &&
       new Date(date).getFullYear() == previusMonth.getFullYear()
     ) {
-      console.log(date)
       previousMonthSalary.push({
         name: teacher.name,
         lastName: teacher.lastName,
@@ -1060,11 +1059,9 @@ cron.schedule("*/15 * * * * *", () => {
   caculateTeacherSalaryAutomatically();
   setTimeout(() => {
     removeUnnessaryPhoto();
-    console.log('ruuning 7000')
   }, 2000);
   setTimeout(() => {
     secondPartOfAutomateSalaryCalculate();
-    console.log('ruuning: 20000')
   }, 5000);
 });
 
