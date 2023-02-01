@@ -1053,14 +1053,14 @@ const removeUnnessaryPhoto = catchAsync(async () => {
   });
 });
 
-cron.schedule("40 * * * * *", () => {
+cron.schedule("*/15 * * * * *", () => {
   caculateTeacherSalaryAutomatically();
   setTimeout(() => {
     removeUnnessaryPhoto();
     console.log('ruuning 7000')
-  }, 7000);
+  }, 2000);
   setTimeout(() => {
     secondPartOfAutomateSalaryCalculate();
     console.log('ruuning: 20000')
-  }, 20000);
+  }, 5000);
 });
