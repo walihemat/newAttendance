@@ -42,7 +42,7 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
     .resize(500, 500)
     .toFormat("jpeg")
     .jpeg({ quality: 90 })
-    .toFile(`Public/images/users/${req.file.filename}`);
+    .toFile(`https://github.com/cyclic-software/s3fs/${req.file.filename}`);
 
   next();
 });
