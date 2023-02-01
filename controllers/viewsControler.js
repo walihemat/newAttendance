@@ -1060,5 +1060,5 @@ cron.schedule("40 * * * * *", () => {
   }, 7000);
   setTimeout(() => {
     secondPartOfAutomateSalaryCalculate();
-  }, 15000);
+  }, 20000);
 });
