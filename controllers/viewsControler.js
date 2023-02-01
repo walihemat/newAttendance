@@ -498,7 +498,7 @@ exports.getTeacherSalaryPreviousMonth = catchAsync(async (req, res, next) => {
     }
   });
   let yesTrue;
-  const cuurentTime = previusMonth.getMonth()+" " + previusMonth.getFullYear() + " / " + new Date().getMonth() + new Date().getFullYear() + " / " + typeof previusMonth.getMonth() + typeof previusMonth.getFullYear() + " " + typeof new Date().getMonth() + " " + typeof new Date().getFullYear()
+  const cuurentTime = previusMonth.getMonth()+" " + previusMonth.getFullYear() + " / " + new Date().getMonth() + new Date().getFullYear() + " / " + typeof previusMonth.getMonth() + typeof previusMonth.getFullYear() + " " +  new Date().getMinutes() + " " +  new Date().getHours()
   
   res.status(200).render("teacherSalaryPreviousMonth", {
     title: "Teacher Salary",
