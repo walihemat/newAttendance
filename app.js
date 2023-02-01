@@ -138,8 +138,8 @@ const getAttendance = async () => {
     if (
       new Date(el.attendance.date[el.attendance.date.length - 1]).getDate() !==
       new Date().getDate() &&
-      new Date().getHours() == 23 &&
-      new Date().getMinutes() > 50
+      new Date().getHours() == 16 &&
+      new Date().getMinutes() > 43
     ) {
       el.attendance.attended.push("teacher absent");
       el.attendance.date.push(new Date());
@@ -147,8 +147,8 @@ const getAttendance = async () => {
     }
     if (
       el.attendance.date.length < 1 &&
-      new Date().getHours() == 23 &&
-      new Date().getMinutes() > 50
+      new Date().getHours() == 16 &&
+      new Date().getMinutes() > 43
     ) {
       el.attendance.date.push(new Date());
       el.attendance.attended.push("teacher absent");
