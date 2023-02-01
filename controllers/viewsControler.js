@@ -317,13 +317,6 @@ const display12HoursTime = (hour, minute) => {
     : h + ":" + minute + " " + dd;
 };
 
-const digitalClock = ()=>{
-  const d = new Date();
-  const hour= d.getHours();
-  const minutes = d.getMinutes();
-
-  return display12HoursTime(hour, minutes)
-}
 
 exports.teacherAttendStudents = catchAsync(async (req, res, next) => {
   const teacher = await Teacher.findById(req.params.id).populate({
@@ -493,6 +486,7 @@ exports.getTeacherSalaryPreviousMonth = catchAsync(async (req, res, next) => {
       new Date(date).getMonth() == previusMonth.getMonth() &&
       new Date(date).getFullYear() == previusMonth.getFullYear()
     ) {
+      console.log(date)
       previousMonthSalary.push({
         name: teacher.name,
         lastName: teacher.lastName,
@@ -503,11 +497,15 @@ exports.getTeacherSalaryPreviousMonth = catchAsync(async (req, res, next) => {
       });
     }
   });
-
+  let yesTrue;
+  const cuurentTime = previusMonth.getMonth()+" " + previusMonth.getFullYear() + " / " + new Date().getMonth() + new Date().getFullYear() + " / " + typeof previusMonth.getMonth() + typeof previusMonth.getFullYear() + " " + typeof new Date().getMonth() + " " + typeof new Date().getFullYear()
+  
   res.status(200).render("teacherSalaryPreviousMonth", {
     title: "Teacher Salary",
     previousMonthSalary,
     teacher,
+    cuurentTime,
+    yesTrue
   });
 });
 

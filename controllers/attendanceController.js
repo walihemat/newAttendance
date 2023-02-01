@@ -201,6 +201,7 @@ exports.removeTeacherStudent = catchAsync(async (req, res, next) => {
 
 const AutoDeleteOutDatedAttendanceRecods = catchAsync(async () => {
   let previusMonth = getPreviousMonth();
+  
 
   const students = await Attendance.find();
   students.forEach((student) => {
