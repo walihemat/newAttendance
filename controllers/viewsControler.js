@@ -292,14 +292,10 @@ exports.getTodayAttendedStudents = catchAsync(async (req, res, next) => {
     return;
   }
 
-  const currentDateDigital = new Date();
-  const digitalCurrentTime = currentDateDigital.getHours() + " : " + currentDateDigital.getMinutes();
   res.status(200).render("admin_dashboard", {
     title: "Attended Students",
     attendedStudents,
     result,
-    adInputSearch,
-    digitalCurrentTime
   });
 });
 
