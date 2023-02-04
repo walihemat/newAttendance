@@ -119,42 +119,42 @@ if (deleteStudentBtn) {
   });
 }
 
-// const presentBtn = document.querySelectorAll(".presentBtn");
-// const studentAbsentBtn = document.querySelectorAll(".studentAbsentBtn");
-// const teacherAbsentBtn = document.querySelectorAll(".teacherAbsentBtn");
+const presentBtn = document.querySelectorAll(".presentBtn");
+const studentAbsentBtn = document.querySelectorAll(".studentAbsentBtn");
+const teacherAbsentBtn = document.querySelectorAll(".teacherAbsentBtn");
 
-// if (presentBtn) {
-//   presentBtn.forEach((btn) => {
-//     btn.addEventListener("click", (e) => {
-//       const id = e.currentTarget.value;
-//       if(confirm('Are you sure to present the student?\n آیا تاسو مطمین یاست چي شاگرد حاضر کړی؟')){
-//         attendStudent(id, "present");
-//       }
-//     });
-//   });
-// }
+if (presentBtn) {
+  presentBtn.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const id = e.currentTarget.value;
+      if(confirm('Are you sure to present the student?\n آیا تاسو مطمین یاست چي شاگرد حاضر کړی؟')){
+        attendStudent(id, "present");
+      }
+    });
+  });
+}
 
-// if (studentAbsentBtn) {
-//   studentAbsentBtn.forEach((btn) => {
-//     btn.addEventListener("click", (e) => {
-//       const id = e.currentTarget.value;
-//       if(confirm('Are you sure to absent the student?\n آیا تاسو مطمین یاست چي شاگرد غیر حاضر کړی؟')){
-//         attendStudent(id, "student absent");
-//       }
-//     });
-//   });
-// }
+if (studentAbsentBtn) {
+  studentAbsentBtn.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const id = e.currentTarget.value;
+      if(confirm('Are you sure to absent the student?\n آیا تاسو مطمین یاست چي شاگرد غیر حاضر کړی؟')){
+        attendStudent(id, "student absent");
+      }
+    });
+  });
+}
 
-// if (teacherAbsentBtn) {
-//   teacherAbsentBtn.forEach((btn) => {
-//     btn.addEventListener("click", (e) => {
-//       const id = e.currentTarget.value;
-//       if(confirm('Are you sure to absent teacher?\n آیا تاسو مطمین یاست چي استاد غیر حاضر کړی؟')){
-//         attendStudent(id, "teacher absent");
-//       }
-//     });
-//   });
-// }
+if (teacherAbsentBtn) {
+  teacherAbsentBtn.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const id = e.currentTarget.value;
+      if(confirm('Are you sure to absent teacher?\n آیا تاسو مطمین یاست چي استاد غیر حاضر کړی؟')){
+        attendStudent(id, "teacher absent");
+      }
+    });
+  });
+}
 
 const addTeacherForm = document.getElementById("addTeacher");
 const teacherName = document.getElementById("teacherName");
