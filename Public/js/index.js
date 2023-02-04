@@ -411,8 +411,8 @@ const display12HoursTime = (hour, minute, seconds, date) => {
     h = 12;
   }
   return h < 10
-    ? "0" + h + " : " + minute + " : " + seconds + " " + dd + " :: " + new Date().getUTCMonth() + " / " +  new Date().getUTCDate() + " / " + new Date().getUTCFullYear()
-    : h + " : " + minute + " : " + seconds + " " + dd+ " :: " + new Date().getUTCMonth() + " / " +  new Date().getUTCDate() + " / " + new Date().getUTCFullYear()
+    ? "0" + h + " : " + minute + " : " + seconds + " " + dd + " :: " +  (+new Date().getUTCMonth()+1)+ " / " +  new Date().getUTCDate() + " / " + new Date().getUTCFullYear()
+    : h + " : " + minute + " : " + seconds + " " + dd+ " :: " + (+new Date().getUTCMonth()+1) + " / " +  new Date().getUTCDate() + " / " + new Date().getUTCFullYear()
 };
 
 const display12HoursTimeAfg = (hour, minute, seconds, laDate) => {
@@ -426,8 +426,8 @@ const display12HoursTimeAfg = (hour, minute, seconds, laDate) => {
     h = 12;
   }
   return h < 10
-    ? "0" + h + " : " + minute + " : " + seconds + " " + dd + " :: " + laDate.getMonth() + " / " +  laDate.getDate() + " / " + laDate.getFullYear()
-    : h + " : " + minute + " : " + seconds + " " + dd+ " :: " + laDate.getMonth() + " / " +  laDate.getDate() + " / " + laDate.getFullYear()
+    ? "0" + h + " : " + minute + " : " + seconds + " " + dd + " :: " + (+laDate.getMonth() + 1) + " / " +  laDate.getDate() + " / " + laDate.getFullYear()
+    : h + " : " + minute + " : " + seconds + " " + dd+ " :: " + (+laDate.getMonth() + 1)+ " / " +  laDate.getDate() + " / " + laDate.getFullYear()
 };
 const digitalClock = ()=> {
   const d = new Date();
