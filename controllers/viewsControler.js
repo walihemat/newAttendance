@@ -25,7 +25,7 @@ exports.getOverview = catchAsync(async (req, res, next) => {
 
   // 3) Render that using tour data from 1
   res.status(200).render("overview", {
-    title: "All Teachers",
+    title: "Teachers' Attendance",
     teachers,
   });
 });
