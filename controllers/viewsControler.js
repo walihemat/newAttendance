@@ -296,6 +296,7 @@ exports.getTodayAttendedStudents = catchAsync(async (req, res, next) => {
     title: "Attended Students",
     attendedStudents,
     result,
+    adInputSearch
   });
 });
 
