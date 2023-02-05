@@ -112,41 +112,49 @@ const deleteStudentBtn = document.querySelectorAll(".deleteStudentBtn");
 if (deleteStudentBtn) {
   deleteStudentBtn.forEach((click) => {
     click.addEventListener("click", (e) => {
-      deleteStudent(e.target.value);
+      if(confirm("Are you sure to remove the student?")){
+        deleteStudent(e.target.value);
+      }
     });
   });
 }
 
-const presentBtn = document.querySelectorAll(".presentBtn");
-const studentAbsentBtn = document.querySelectorAll(".studentAbsentBtn");
-const teacherAbsentBtn = document.querySelectorAll(".teacherAbsentBtn");
+// const presentBtn = document.querySelectorAll(".presentBtn");
+// const studentAbsentBtn = document.querySelectorAll(".studentAbsentBtn");
+// const teacherAbsentBtn = document.querySelectorAll(".teacherAbsentBtn");
 
-if (presentBtn) {
-  presentBtn.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      const id = e.currentTarget.value;
-      attendStudent(id, "present");
-    });
-  });
-}
+// if (presentBtn) {
+//   presentBtn.forEach((btn) => {
+//     btn.addEventListener("click", (e) => {
+//       const id = e.currentTarget.value;
+//       if(confirm('Are you sure to present the student?\n آیا تاسو مطمین یاست چي شاگرد حاضر کړی؟')){
+//         attendStudent(id, "present");
+//       }
+//     });
+//   });
+// }
 
-if (studentAbsentBtn) {
-  studentAbsentBtn.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      const id = e.currentTarget.value;
-      attendStudent(id, "student absent");
-    });
-  });
-}
+// if (studentAbsentBtn) {
+//   studentAbsentBtn.forEach((btn) => {
+//     btn.addEventListener("click", (e) => {
+//       const id = e.currentTarget.value;
+//       if(confirm('Are you sure to absent the student?\n آیا تاسو مطمین یاست چي شاگرد غیر حاضر کړی؟')){
+//         attendStudent(id, "student absent");
+//       }
+//     });
+//   });
+// }
 
-if (teacherAbsentBtn) {
-  teacherAbsentBtn.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      const id = e.currentTarget.value;
-      attendStudent(id, "teacher absent");
-    });
-  });
-}
+// if (teacherAbsentBtn) {
+//   teacherAbsentBtn.forEach((btn) => {
+//     btn.addEventListener("click", (e) => {
+//       const id = e.currentTarget.value;
+//       if(confirm('Are you sure to absent teacher?\n آیا تاسو مطمین یاست چي استاد غیر حاضر کړی؟')){
+//         attendStudent(id, "teacher absent");
+//       }
+//     });
+//   });
+// }
 
 const addTeacherForm = document.getElementById("addTeacher");
 const teacherName = document.getElementById("teacherName");
@@ -363,7 +371,9 @@ if (adpresentBtn) {
   adpresentBtn.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const id = e.currentTarget.value;
-      attendStudent(id, "present");
+      if(confirm('Are you sure to present the student?\n آیا تاسو مطمین یاست چي شاگرد حاضر کړی؟')){
+        attendStudent(id, "present");
+      }
     });
   });
 }
@@ -372,7 +382,9 @@ if (adstudentAbsentBtn) {
   adstudentAbsentBtn.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const id = e.currentTarget.value;
-      attendStudent(id, "student absent");
+      if(confirm('Are you sure to absent the student?\n آیا تاسو مطمین یاست چي شاگرد غیر حاضر کړی؟')){
+        attendStudent(id, "student absent");
+      }
     });
   });
 }
@@ -381,12 +393,14 @@ if (adteacherAbsentBtn) {
   adteacherAbsentBtn.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const id = e.currentTarget.value;
-      attendStudent(id, "teacher absent");
+      if(confirm('Are you sure to absent teacher?\n آیا تاسو مطمین یاست چي استاد غیر حاضر کړی؟')){
+        attendStudent(id, "teacher absent");
+      }
     });
   });
 }
 
-const display12HoursTime = (hour, minute, seconds) => {
+const display12HoursTime = (hour, minute, seconds, date) => {
   let dd = "AM";
   let h = hour;
   if (h >= 12) {
@@ -401,6 +415,20 @@ const display12HoursTime = (hour, minute, seconds) => {
     : h + " : " + minute + " : " + seconds + " " + dd+ " :: " + new Date().getUTCMonth() + " / " +  new Date().getUTCDate() + " / " + new Date().getUTCFullYear()
 };
 
+const display12HoursTimeAfg = (hour, minute, seconds, laDate) => {
+  let dd = "AM";
+  let h = hour;
+  if (h >= 12) {
+    h = hour - 12;
+    dd = "PM";
+  }
+  if (h == 0) {
+    h = 12;
+  }
+  return h < 10
+    ? "0" + h + " : " + minute + " : " + seconds + " " + dd + " :: " + laDate.getMonth() + " / " +  laDate.getDate() + " / " + laDate.getFullYear()
+    : h + " : " + minute + " : " + seconds + " " + dd+ " :: " + laDate.getMonth() + " / " +  laDate.getDate() + " / " + laDate.getFullYear()
+};
 const digitalClock = ()=> {
   const d = new Date();
   const hour = d.getUTCHours();
@@ -409,10 +437,38 @@ const digitalClock = ()=> {
   return display12HoursTime(hour, minute, seconds);
 }
 
+function changeTimeZone(date, timeZone) {
+  if (typeof date === 'string') {
+    return new Date(
+      new Date(date).toLocaleString('en-US', {
+        timeZone,
+      }),
+    );
+  }
+
+  return new Date(
+    date.toLocaleString('en-US', {
+      timeZone,
+    }),
+  );
+}
+
+
 const digitalClockPara = document.getElementById('digitalClock');
 
 if(digitalClockPara){
   window.setInterval(()=> {
     digitalClockPara.textContent = digitalClock();
+  })
+}
+
+
+
+const digitalClockAfg = document.getElementById('digitalClockAfg');
+if(digitalClockAfg){
+  
+  window.setInterval(()=>{
+    const laDate = changeTimeZone(new Date(), 'Asia/kabul');
+    digitalClockAfg.textContent = display12HoursTimeAfg(laDate.getHours(), laDate.getMinutes(), laDate.getSeconds(), laDate)
   })
 }

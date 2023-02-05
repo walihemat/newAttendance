@@ -2,16 +2,22 @@
 extends base
 
 block content
-  .container.pt-5.pt-md-0
+  .container.pt-5
     .mt-3.mb-1.row.align-items-end.justify-content-center(style='height: 100px')
-      .col-sm-12.col-md-auto.d-flex.justify-content-center
-        span#digitalClock.bg-primary.text-white.p-2
-      .col-md-6.col-9
-        form(action=`/teacher_dashboard/${user._id}` method='GET')
+      .col-sm-12.col-auto.col-lg-auto
+        .d-flex.justify-content-center.align-items-center
+          p.p-2 Sys-Time
+          p#digitalClock.bg-primary.text-white.p-2.mb-0.mb-1-lg
+      .col-sm-9.col-md-9.col-lg-9.col-10.col-xl-auto
+        form(action=`/teacher_dashboard/${user._id}` method='GET' style='max-width:500px')
           .input-group.d-flex.justify-content-center.align-items-center
             input.form-control(type='text' name='inputSearch' placeholder='Search Student' aria-describedby='after' value=`${inputSearch}`)
             button.btn.btn-primary#after(type='submit') Search
-    .row.teacher-container-row.mx-3.mx-md-0
+      .col-sm-12.col-auto.col-lg-auto
+        .d-flex.justify-content-center.align-items-center
+          p.p-2 Afg-Time
+          p#digitalClockAfg.bg-success.text-white.p-2.mb-0.mb-1-lg
+    .row.align-items-center.teacher-container-row.mx-3.mx-md-0
       .col-12.card-section.py-3
         .row.justify-content-center.g-2
           if !result
