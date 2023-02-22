@@ -6,7 +6,7 @@ const Student = require("./../models/attendanceModel");
 const catchAsync = require("./../utils/catchAsync");
 const AppErorr = require("./../utils/appError");
 
-const getPreviousMonth= ()=>{
+const getPreviousMonth = () => {
   var d = new Date();
   var newMonth = d.getMonth() - 1;
 
@@ -15,8 +15,8 @@ const getPreviousMonth= ()=>{
     d.setYear(d.getFullYear() - 1); // use getFullYear instead of getYear !
   }
   const previusMonth = new Date(d.setMonth(newMonth));
-  return previusMonth
-}
+  return previusMonth;
+};
 
 exports.getOverview = catchAsync(async (req, res, next) => {
   // 1) get tour data from collection
@@ -178,14 +178,12 @@ exports.getStudents = catchAsync(async (req, res, next) => {
   });
 });
 
-
 exports.getStudent = catchAsync(async (req, res, next) => {
   let previusMonth = getPreviousMonth();
   let page = "edit_student";
   if (req.url.startsWith("/student_info")) {
     page = "student_info";
   }
-  
 
   const student = await Student.findById(req.params.id);
 
@@ -234,7 +232,6 @@ exports.login = (req, res) => {
 };
 
 exports.getTodayAttendedStudents = catchAsync(async (req, res, next) => {
-  
   let students = await Student.find().populate({
     path: "teacher",
     select: "name",
@@ -296,11 +293,9 @@ exports.getTodayAttendedStudents = catchAsync(async (req, res, next) => {
     title: "Attended Students",
     attendedStudents,
     result,
-    adInputSearch
+    adInputSearch,
   });
 });
-
-
 
 const display12HoursTime = (hour, minute) => {
   let dd = "AM";
@@ -316,7 +311,6 @@ const display12HoursTime = (hour, minute) => {
     ? "0" + h + ":" + minute + " " + dd
     : h + ":" + minute + " " + dd;
 };
-
 
 exports.teacherAttendStudents = catchAsync(async (req, res, next) => {
   const teacher = await Teacher.findById(req.params.id).populate({
@@ -475,9 +469,8 @@ exports.getTeacherSalary = catchAsync(async (req, res, next) => {
 });
 
 exports.getTeacherSalaryPreviousMonth = catchAsync(async (req, res, next) => {
-
   let previusMonth = getPreviousMonth();
-  let previousMonthSalary=[]
+  let previousMonthSalary = [];
 
   const teacher = await Teacher.findById(req.params.id);
 
@@ -496,7 +489,7 @@ exports.getTeacherSalaryPreviousMonth = catchAsync(async (req, res, next) => {
       });
     }
   });
-  
+
   res.status(200).render("teacherSalaryPreviousMonth", {
     title: "Teacher Salary",
     previousMonthSalary,
@@ -505,7 +498,6 @@ exports.getTeacherSalaryPreviousMonth = catchAsync(async (req, res, next) => {
 });
 
 const caculateTeacherSalaryAutomatically = catchAsync(async () => {
- 
   let previusMonth = getPreviousMonth();
 
   const teachers = await Teacher.find({ role: "teacher" }).populate({
@@ -583,10 +575,7 @@ const caculateTeacherSalaryAutomatically = catchAsync(async () => {
   });
 });
 
-
-
 const secondPartOfAutomateSalaryCalculate = async () => {
-
   let previusMonth = getPreviousMonth();
 
   const teachers = await Teacher.find({ role: "teacher" });
@@ -1024,17 +1013,25 @@ exports.adminAttendStudents = catchAsync(async (req, res, next) => {
     }
   });
   const newStudents = attendedStudents;
-  
+
   if (req.query.adminInputSearch == "") {
     res.redirect(`/admin_attend_students`);
     return;
   }
-  
+  const time =
+    new Date().getHours() +
+    " : " +
+    new Date().getMinutes() +
+    " : " +
+    new Date().getSeconds() +
+    " || " +
+    new Date().toLocaleDateString();
   res.status(200).render("adminTakeAttendance", {
     title: "Take Attendance",
     result,
     newStudents,
     adminInputSearch,
+    time,
   });
 });
 
@@ -1061,5 +1058,3 @@ cron.schedule("*/15 * * * * *", () => {
     secondPartOfAutomateSalaryCalculate();
   }, 5000);
 });
-
-

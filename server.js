@@ -4,7 +4,7 @@ const app = require("./app");
 
 process.on("uncaughtException", (err) => {
   console.log("UNCAUGHT EXPCEPTION! Shutting down...");
- console.log(err.name, err.message);
+  console.log(err.name, err.message);
   process.exit(1);
 });
 
@@ -20,7 +20,7 @@ mongoose
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   })
   .then((con) => console.log("DB connection successfull!"));
 

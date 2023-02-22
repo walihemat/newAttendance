@@ -6,8 +6,9 @@ block content
     .mt-3.mb-1.row.align-items-end.justify-content-center(style='height: 100px')
       .col-sm-12.col-auto.col-lg-auto
         .d-flex.justify-content-center.align-items-center
-          p.p-2 Sys-Time
-          p#digitalClock.bg-primary.text-white.p-2.mb-0.mb-1-lg
+          //- p.p-2 Sys-Time
+          //- p#digitalClock.bg-primary.text-white.p-2.mb-0.mb-1-lg
+          p= time
       .col-sm-9.col-md-9.col-lg-9.col-10.col-xl-auto
         form(action=`/admin_attend_students` method='GET')
           .input-group.d-flex.justify-content-center

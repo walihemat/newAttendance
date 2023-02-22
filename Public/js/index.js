@@ -112,7 +112,7 @@ const deleteStudentBtn = document.querySelectorAll(".deleteStudentBtn");
 if (deleteStudentBtn) {
   deleteStudentBtn.forEach((click) => {
     click.addEventListener("click", (e) => {
-      if(confirm("Are you sure to remove the student?")){
+      if (confirm("Are you sure to remove the student?")) {
         deleteStudent(e.target.value);
       }
     });
@@ -127,7 +127,11 @@ if (presentBtn) {
   presentBtn.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const id = e.currentTarget.value;
-      if(confirm('Are you sure to present the student?\n آیا تاسو مطمین یاست چي شاگرد حاضر کړی؟')){
+      if (
+        confirm(
+          "Are you sure to present the student?\n آیا تاسو مطمین یاست چي شاگرد حاضر کړی؟"
+        )
+      ) {
         attendStudent(id, "present");
       }
     });
@@ -138,7 +142,11 @@ if (studentAbsentBtn) {
   studentAbsentBtn.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const id = e.currentTarget.value;
-      if(confirm('Are you sure to absent the student?\n آیا تاسو مطمین یاست چي شاگرد غیر حاضر کړی؟')){
+      if (
+        confirm(
+          "Are you sure to absent the student?\n آیا تاسو مطمین یاست چي شاگرد غیر حاضر کړی؟"
+        )
+      ) {
         attendStudent(id, "student absent");
       }
     });
@@ -149,7 +157,11 @@ if (teacherAbsentBtn) {
   teacherAbsentBtn.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const id = e.currentTarget.value;
-      if(confirm('Are you sure to absent teacher?\n آیا تاسو مطمین یاست چي استاد غیر حاضر کړی؟')){
+      if (
+        confirm(
+          "Are you sure to absent teacher?\n آیا تاسو مطمین یاست چي استاد غیر حاضر کړی؟"
+        )
+      ) {
         attendStudent(id, "teacher absent");
       }
     });
@@ -371,7 +383,11 @@ if (adpresentBtn) {
   adpresentBtn.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const id = e.currentTarget.value;
-      if(confirm('Are you sure to present the student?\n آیا تاسو مطمین یاست چي شاگرد حاضر کړی؟')){
+      if (
+        confirm(
+          "Are you sure to present the student?\n آیا تاسو مطمین یاست چي شاگرد حاضر کړی؟"
+        )
+      ) {
         attendStudent(id, "present");
       }
     });
@@ -382,7 +398,11 @@ if (adstudentAbsentBtn) {
   adstudentAbsentBtn.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const id = e.currentTarget.value;
-      if(confirm('Are you sure to absent the student?\n آیا تاسو مطمین یاست چي شاگرد غیر حاضر کړی؟')){
+      if (
+        confirm(
+          "Are you sure to absent the student?\n آیا تاسو مطمین یاست چي شاگرد غیر حاضر کړی؟"
+        )
+      ) {
         attendStudent(id, "student absent");
       }
     });
@@ -393,7 +413,11 @@ if (adteacherAbsentBtn) {
   adteacherAbsentBtn.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const id = e.currentTarget.value;
-      if(confirm('Are you sure to absent teacher?\n آیا تاسو مطمین یاست چي استاد غیر حاضر کړی؟')){
+      if (
+        confirm(
+          "Are you sure to absent teacher?\n آیا تاسو مطمین یاست چي استاد غیر حاضر کړی؟"
+        )
+      ) {
         attendStudent(id, "teacher absent");
       }
     });
@@ -411,8 +435,33 @@ const display12HoursTime = (hour, minute, seconds, date) => {
     h = 12;
   }
   return h < 10
-    ? "0" + h + " : " + minute + " : " + seconds + " " + dd + " :: " +  (+new Date().getUTCMonth()+1)+ " / " +  new Date().getUTCDate() + " / " + new Date().getUTCFullYear()
-    : h + " : " + minute + " : " + seconds + " " + dd+ " :: " + (+new Date().getUTCMonth()+1) + " / " +  new Date().getUTCDate() + " / " + new Date().getUTCFullYear()
+    ? "0" +
+        h +
+        " : " +
+        minute +
+        " : " +
+        seconds +
+        " " +
+        dd +
+        " :: " +
+        (+new Date().getUTCMonth() + 1) +
+        " / " +
+        new Date().getUTCDate() +
+        " / " +
+        new Date().getUTCFullYear()
+    : h +
+        " : " +
+        minute +
+        " : " +
+        seconds +
+        " " +
+        dd +
+        " :: " +
+        (+new Date().getUTCMonth() + 1) +
+        " / " +
+        new Date().getUTCDate() +
+        " / " +
+        new Date().getUTCFullYear();
 };
 
 const display12HoursTimeAfg = (hour, minute, seconds, laDate) => {
@@ -426,49 +475,75 @@ const display12HoursTimeAfg = (hour, minute, seconds, laDate) => {
     h = 12;
   }
   return h < 10
-    ? "0" + h + " : " + minute + " : " + seconds + " " + dd + " :: " + (+laDate.getMonth() + 1) + " / " +  laDate.getDate() + " / " + laDate.getFullYear()
-    : h + " : " + minute + " : " + seconds + " " + dd+ " :: " + (+laDate.getMonth() + 1)+ " / " +  laDate.getDate() + " / " + laDate.getFullYear()
+    ? "0" +
+        h +
+        " : " +
+        minute +
+        " : " +
+        seconds +
+        " " +
+        dd +
+        " :: " +
+        (+laDate.getMonth() + 1) +
+        " / " +
+        laDate.getDate() +
+        " / " +
+        laDate.getFullYear()
+    : h +
+        " : " +
+        minute +
+        " : " +
+        seconds +
+        " " +
+        dd +
+        " :: " +
+        (+laDate.getMonth() + 1) +
+        " / " +
+        laDate.getDate() +
+        " / " +
+        laDate.getFullYear();
 };
-const digitalClock = ()=> {
-  const d = new Date();
-  const hour = d.getUTCHours();
-  const minute = d.getUTCMinutes();
-  const seconds = d.getUTCSeconds();
-  return display12HoursTime(hour, minute, seconds);
-}
+// const digitalClock = ()=> {
+//   const d = new Date();
+//   const hour = d.getUTCHours();
+//   const minute = d.getUTCMinutes();
+//   const seconds = d.getUTCSeconds();
+//   return display12HoursTime(hour, minute, seconds);
+// }
 
 function changeTimeZone(date, timeZone) {
-  if (typeof date === 'string') {
+  if (typeof date === "string") {
     return new Date(
-      new Date(date).toLocaleString('en-US', {
+      new Date(date).toLocaleString("en-US", {
         timeZone,
-      }),
+      })
     );
   }
 
   return new Date(
-    date.toLocaleString('en-US', {
+    date.toLocaleString("en-US", {
       timeZone,
-    }),
+    })
   );
 }
 
+// const digitalClockPara = document.getElementById('digitalClock');
 
-const digitalClockPara = document.getElementById('digitalClock');
+// if(digitalClockPara){
+//   window.setInterval(()=> {
+//     digitalClockPara.textContent = digitalClock();
+//   })
+// }
 
-if(digitalClockPara){
-  window.setInterval(()=> {
-    digitalClockPara.textContent = digitalClock();
-  })
-}
-
-
-
-const digitalClockAfg = document.getElementById('digitalClockAfg');
-if(digitalClockAfg){
-  
-  window.setInterval(()=>{
-    const laDate = changeTimeZone(new Date(), 'Asia/kabul');
-    digitalClockAfg.textContent = display12HoursTimeAfg(laDate.getHours(), laDate.getMinutes(), laDate.getSeconds(), laDate)
-  })
+const digitalClockAfg = document.getElementById("digitalClockAfg");
+if (digitalClockAfg) {
+  window.setInterval(() => {
+    const laDate = changeTimeZone(new Date(), "Asia/kabul");
+    digitalClockAfg.textContent = display12HoursTimeAfg(
+      laDate.getHours(),
+      laDate.getMinutes(),
+      laDate.getSeconds(),
+      laDate
+    );
+  });
 }
